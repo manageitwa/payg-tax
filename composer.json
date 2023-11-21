@@ -1,0 +1,29 @@
+{
+    "name": "manageitwa/payg-tax",
+    "description": "Calculate PAYG tax withholding amounts for employees",
+    "type": "library",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Ben Thomson",
+            "email": "ben@manageit.com.au"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "nesbot/carbon": "^2.71.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ManageIt\\PaygTax\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ManageIt\\PaygTax\\Tests\\": "tests/"
+        }
+    }
+}
