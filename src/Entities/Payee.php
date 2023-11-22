@@ -46,6 +46,46 @@ interface Payee
      */
     public const PAY_CYCLE_QUARTERLY = 4;
 
+    // Medicare levy exemption
+
+    /**
+     * The payee is not claiming a Medicare levy exemption.
+     */
+    public const MEDICARE_LEVY_EXEMPTION_NONE = 0;
+
+    /**
+     * The payee is claiming a full Medicare levy exemption.
+     */
+    public const MEDICARE_LEVY_EXEMPTION_FULL = 1;
+
+    /**
+     * The payee is claiming a half Medicare levy exemption.
+     */
+    public const MEDICARE_LEVY_EXEMPTION_HALF = 2;
+
+    // Seniors offset
+
+    /**
+     * The payee is not claiming the Seniors Offset.
+     */
+    public const SENIORS_OFFSET_NONE = 0;
+
+    /**
+     * The payee is claiming the Seniors Offset and is single.
+     */
+    public const SENIORS_OFFSET_SINGLE = 0;
+
+    /**
+     * The payee is claiming the Seniors Offset and was married or in a de-facto relationship, but is now separated
+     * due to illness.
+     */
+    public const SENIORS_OFFSET_ILLNESS_SEPARATED = 1;
+
+    /**
+     * The payee is claiming the Seniors Offset and is married or in a de-facto relationship.
+     */
+    public const SENIORS_OFFSET_COUPLE = 2;
+
     /**
      * Gets the residency status of this payee.
      *
@@ -65,8 +105,6 @@ interface Payee
      *
      * This should return `true` if the the payee does have a tax file number, or is using one of the following special
      * TFNs to claim an exemption or current application for a TFN: `111111111`, `333333333` or `444444444`.
-     *
-     * @return bool
      */
     public function hasTfnNumber(): bool;
 
@@ -86,6 +124,31 @@ interface Payee
     public function claimsTaxFreeThreshold(): bool;
 
     /**
+     * Determines if the payee is claiming a Medicare Levy Exemption.
+     *
+     * This method should return one of the Medicare Levy Exemption constants provided in this interface:
+     *
+     *  - `Payee::MEDICARE_LEVY_EXEMPTION_NONE`: Payee is not claiming an exemption.
+     *  - `Payee::MEDICARE_LEVY_EXEMPTION_FULL`: Payee is claiming a full Medicare levy exemption.
+     *  - `Payee::MEDICARE_LEVY_EXEMPTION_HALF`: Payee is claiming a half Medicare levy exemption.
+     */
+    public function getMedicareLevyExemption(): int;
+
+    /**
+     * Determines if the payee is claiming the Seniors offset.
+     *
+     * This method should return one of the scenarios to which this payee is applying the offset for:
+     *
+     * - `Payee::SENIORS_OFFSET_NONE`: Payee is not claiming the Seniors Offset.
+     * - `Payee::SENIORS_OFFSET_SINGLE`: Payee is claiming the Seniors Offset and is single.
+     * - `Payee::SENIORS_OFFSET_ILLNESS_SEPARATED`: Payee is claiming the Seniors Offset and was married or in a de-
+     *  facto relationship, but is now separated due to illness.
+     * - `Payee::SENIORS_OFFSET_COUPLE`: Payee is claiming the Seniors Offset and is married or in a de-facto
+     *  relationship.
+     */
+    public function getSeniorsOffset(): int;
+
+    /**
      * Determines if the payee has a Study and Training Support Loan (STSL) debt.
      *
      * This debt can be any of the following:
@@ -95,8 +158,6 @@ interface Payee
      * - Financial Supplement (FS)
      * - Student Start-up Loan (SSL)
      * - Trade Support Loan (TSL)
-     *
-     * @return bool
      */
     public function hasSTSLDebt(): bool;
 
