@@ -11,6 +11,7 @@ class Payee implements PayeeInterface
     public bool $claimsTaxFreeThreshold = true;
     public int $payCycle = self::PAY_CYCLE_WEEKLY;
     public bool $stsl = false;
+    /** @var \ManageIt\PaygTax\Entities\TaxAdjustment[] */
     public array $adjustments = [];
 
     public function getResidencyStatus(): int

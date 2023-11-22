@@ -7,6 +7,7 @@ use ManageIt\PaygTax\Tests\Fixtures\Earning;
 use ManageIt\PaygTax\Tests\Fixtures\Payee;
 use ManageIt\PaygTax\Tests\Fixtures\Payer;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Assert;
 
 /**
  * @covers \ManageIt\PaygTax\TaxScales\October2020\Nat1004Scale1
@@ -33,31 +34,31 @@ class Nat1004Scale1Test extends TestCase
         $earning = new Earning();
         $earning->date = new \DateTime('2022-10-10');
 
-        $this->assertTrue($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->residencyStatus = Payee::FOREIGN_RESIDENT;
-        $this->assertFalse($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->residencyStatus = Payee::WORKING_HOLIDAY_MAKER;
-        $this->assertFalse($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->residencyStatus = Payee::RESIDENT;
         $payee->tfn = false;
-        $this->assertFalse($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = true;
-        $this->assertFalse($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->claimsTaxFreeThreshold = false;
         $payee->stsl = true;
-        $this->assertFalse($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->stsl = false;
-        $this->assertTrue($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
 
         $earning->date = new \DateTime('2019-08-01');
-        $this->assertFalse($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
     }
 
     /**
@@ -78,9 +79,12 @@ class Nat1004Scale1Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        $this->assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
     }
 
+    /**
+     * @return array<int, array<int|float, int|float>>
+     */
     public function weeklyData(): array
     {
         return [
@@ -153,9 +157,12 @@ class Nat1004Scale1Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        $this->assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
     }
 
+    /**
+     * @return array<int, array<int|float, int|float>>
+     */
     public function fortnightlyData(): array
     {
         return [
@@ -228,9 +235,12 @@ class Nat1004Scale1Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        $this->assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
     }
 
+    /**
+     * @return array<int, array<int|float, int|float>>
+     */
     public function monthlyData(): array
     {
         return [
@@ -284,5 +294,4 @@ class Nat1004Scale1Test extends TestCase
             [14997.67, 5321],
         ];
     }
-
 }

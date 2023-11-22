@@ -13,9 +13,9 @@ class Date
      * Determines if the date is either on, or after the from date.
      *
      * @param \DateTimeInterface|string|int $date
-     * @param \DateTimeInterface|string|int $to
+     * @param \DateTimeInterface|string|int $from
      */
-    public static function from(\DateTimeInterface $date, $from): bool
+    public static function from($date, $from): bool
     {
         $date = static::dateToCarbon($date)->setTime(0, 0);
         $from = static::dateToCarbon($from)->setTime(0, 0);
@@ -48,14 +48,10 @@ class Date
     {
         if ($date instanceof \DateTimeInterface) {
             return Carbon::instance($date);
-        } else if (is_string($date)) {
+        } elseif (is_string($date)) {
             return Carbon::parse($date);
-        } else if (is_int($date)) {
+        } else {
             return Carbon::createFromTimestamp($date, 'UTC');
         }
-
-        throw new \InvalidArgumentException(
-            'Date must be a DateTimeInterface instance, integer timestamp or date string.'
-        );
     }
 }

@@ -9,42 +9,42 @@ interface Payee
     /**
      * The payee is an Australian resident for tax purposes.
      */
-    const RESIDENT = 0;
+    public const RESIDENT = 0;
     /**
      * The payee is a foreign resident of Australia for tax purposes.
      */
-    const FOREIGN_RESIDENT = 1;
+    public const FOREIGN_RESIDENT = 1;
     /**
      * The payee is a working holiday maker, working in Australia under an applicable working holiday visa.
      */
-    const WORKING_HOLIDAY_MAKER = 2;
+    public const WORKING_HOLIDAY_MAKER = 2;
 
     // Pay cycle
 
     /**
      * The payee is paid on a casual basis. This is the same as being paid daily.
      */
-    const PAY_CYCLE_CASUAL = 0;
+    public const PAY_CYCLE_CASUAL = 0;
     /**
      * The payee is paid on a daily basis.
      */
-    const PAY_CYCLE_DAILY = 0;
+    public const PAY_CYCLE_DAILY = 0;
     /**
      * The payee is paid on a weekly basis.
      */
-    const PAY_CYCLE_WEEKLY = 1;
+    public const PAY_CYCLE_WEEKLY = 1;
     /**
      * The payee is paid on a fortnightly basis.
      */
-    const PAY_CYCLE_FORTNIGHTLY = 2;
+    public const PAY_CYCLE_FORTNIGHTLY = 2;
     /**
      * The payee is paid on a monthly basis.
      */
-    const PAY_CYCLE_MONTHLY = 3;
+    public const PAY_CYCLE_MONTHLY = 3;
     /**
      * The payee is paid on a quarterly basis (every 3 months).
      */
-    const PAY_CYCLE_QUARTERLY = 4;
+    public const PAY_CYCLE_QUARTERLY = 4;
 
     /**
      * Gets the residency status of this payee.
@@ -86,12 +86,27 @@ interface Payee
     public function claimsTaxFreeThreshold(): bool;
 
     /**
+     * Determines if the payee has a Study and Training Support Loan (STSL) debt.
+     *
+     * This debt can be any of the following:
+     *
+     * - Higher Education Loan Program (HELP)
+     * - VET Student Loan (VSL)
+     * - Financial Supplement (FS)
+     * - Student Start-up Loan (SSL)
+     * - Trade Support Loan (TSL)
+     *
+     * @return bool
+     */
+    public function hasSTSLDebt(): bool;
+
+    /**
      * Gets the tax adjustments that this payee is claiming.
      *
      * Please note that this will return all adjustments that the payee is claiming, including adjustments that may not
      * be eligible for the payee or earning.
      *
-     * @return TaxAdjustments[]
+     * @return \ManageIt\PaygTax\Entities\TaxAdjustment[]
      */
     public function getAdjustments(): array;
 }

@@ -23,7 +23,7 @@ abstract class BaseCoefficientScale implements TaxScale
      * ['max gross amount' => ['percentage', 'adjustment']]
      * ```
      *
-     * @var array<int, array<float, float>>
+     * @var array<int, array<int, int|float>>
      */
     protected array $coefficients = [];
 
