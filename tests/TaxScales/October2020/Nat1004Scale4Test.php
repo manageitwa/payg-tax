@@ -47,6 +47,14 @@ class Nat1004Scale4Test extends TestCase
         Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->tfn = false;
+        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_FULL;
+        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
+
+        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_NONE;
+        $payee->seniorsOffset = Payee::SENIORS_OFFSET_COUPLE;
+        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
+
+        $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
         Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
 
         $earning->date = new \DateTime('2019-08-01');

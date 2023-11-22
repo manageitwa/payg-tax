@@ -11,6 +11,8 @@ use ManageIt\PaygTax\Utilities\Date;
 /**
  * Standard tax scale for any person who has not provided a Tax File Number.
  *
+ * A person with a no tax file number cannot claim any offsets or adjustments.
+ *
  * This tax scale has come into effect from 13 October 2020.
  */
 class Nat1004Scale4 implements TaxScale
