@@ -56,6 +56,11 @@ class Nat1004Scale6 extends BaseCoefficientScale
             return false;
         }
 
+        // Only applies to payees without an STSL debt.
+        if ($payee->hasSTSLDebt()) {
+            return false;
+        }
+
         // Only applies to payees claiming a half Medicare Levy exemption.
         if ($payee->getMedicareLevyExemption() !== \ManageIt\PaygTax\Entities\Payee::MEDICARE_LEVY_EXEMPTION_HALF) {
             return false;

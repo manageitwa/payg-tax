@@ -51,10 +51,9 @@ class Nat1004Scale6Test extends TestCase
         $payee->claimsTaxFreeThreshold = false;
         Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
-        // If a payee is claiming a half Medicare Levy Exemption, this will mean that they cannot pay a STSL debt.
         $payee->claimsTaxFreeThreshold = true;
         $payee->stsl = true;
-        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->stsl = false;
         $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_FULL;
