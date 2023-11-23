@@ -13,7 +13,7 @@ class Math
      */
     public static function round(float $value): float
     {
-        $fraction = round($value - floor($value), 2);
+        $fraction = $value - floor($value);
 
         if ($fraction >= 0.5) {
             return floor($value) + 1;
