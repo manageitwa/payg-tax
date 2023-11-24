@@ -86,7 +86,7 @@ class BaseClassifier implements Classifier
         return $taxScales;
     }
 
-    protected function convertPathToClassName(string $path): string|null
+    protected function convertPathToClassName(string $path): ?string
     {
         $taxScaleDir = realpath(__DIR__ . '/../TaxScales/');
 
