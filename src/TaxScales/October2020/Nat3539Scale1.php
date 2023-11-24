@@ -76,11 +76,6 @@ class Nat3539Scale1 extends BaseCoefficientScale
             return false;
         }
 
-        // Only applies to payees with no Medicare Levy exemption.
-        if ($payee->getMedicareLevyExemption() !== \ManageIt\PaygTax\Entities\Payee::MEDICARE_LEVY_EXEMPTION_NONE) {
-            return false;
-        }
-
         // Only applies to payees not claiming the Seniors Offset.
         if ($payee->getSeniorsOffset() !== \ManageIt\PaygTax\Entities\Payee::SENIORS_OFFSET_NONE) {
             return false;
