@@ -2,6 +2,7 @@
 
 namespace ManageIt\PaygTax\Tests\TaxScales\October2020;
 
+use ManageIt\PaygTax\PaygTax;
 use ManageIt\PaygTax\TaxScales\October2020\Nat1004Scale4;
 use ManageIt\PaygTax\Tests\Fixtures\Earning;
 use ManageIt\PaygTax\Tests\Fixtures\Payee;
@@ -83,7 +84,12 @@ class Nat1004Scale4Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        $payg = PaygTax::new()
+            ->setPayer($payer)
+            ->setPayee($payee)
+            ->setEarning($earning);
+
+        Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
 
     /**

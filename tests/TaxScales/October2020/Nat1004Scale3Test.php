@@ -2,6 +2,7 @@
 
 namespace ManageIt\PaygTax\Tests\TaxScales\October2020;
 
+use ManageIt\PaygTax\PaygTax;
 use ManageIt\PaygTax\TaxScales\October2020\Nat1004Scale3;
 use ManageIt\PaygTax\Tests\Fixtures\Earning;
 use ManageIt\PaygTax\Tests\Fixtures\Payee;
@@ -34,6 +35,9 @@ class Nat1004Scale3Test extends TestCase
         $earning = new Earning();
         $earning->date = new \DateTime('2022-10-10');
 
+        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
+
+        $payee->claimsTaxFreeThreshold = false;
         Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->residencyStatus = Payee::RESIDENT;
@@ -74,7 +78,7 @@ class Nat1004Scale3Test extends TestCase
 
         $payee = new Payee();
         $payee->payCycle = Payee::PAY_CYCLE_WEEKLY;
-        $payee->residencyStatus = Payee::RESIDENT;
+        $payee->residencyStatus = Payee::FOREIGN_RESIDENT;
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = false;
         $payee->stsl = false;
@@ -83,7 +87,12 @@ class Nat1004Scale3Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        $payg = PaygTax::new()
+            ->setPayer($payer)
+            ->setPayee($payee)
+            ->setEarning($earning);
+
+        Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
 
     /**
@@ -152,7 +161,7 @@ class Nat1004Scale3Test extends TestCase
 
         $payee = new Payee();
         $payee->payCycle = Payee::PAY_CYCLE_FORTNIGHTLY;
-        $payee->residencyStatus = Payee::RESIDENT;
+        $payee->residencyStatus = Payee::FOREIGN_RESIDENT;
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = false;
         $payee->stsl = false;
@@ -161,7 +170,12 @@ class Nat1004Scale3Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        $payg = PaygTax::new()
+            ->setPayer($payer)
+            ->setPayee($payee)
+            ->setEarning($earning);
+
+        Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
 
     /**
@@ -230,7 +244,7 @@ class Nat1004Scale3Test extends TestCase
 
         $payee = new Payee();
         $payee->payCycle = Payee::PAY_CYCLE_MONTHLY;
-        $payee->residencyStatus = Payee::RESIDENT;
+        $payee->residencyStatus = Payee::FOREIGN_RESIDENT;
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = false;
         $payee->stsl = false;
@@ -239,7 +253,12 @@ class Nat1004Scale3Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        $payg = PaygTax::new()
+            ->setPayer($payer)
+            ->setPayee($payee)
+            ->setEarning($earning);
+
+        Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
 
     /**

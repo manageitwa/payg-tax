@@ -2,6 +2,7 @@
 
 namespace ManageIt\PaygTax\Tests\TaxScales\October2020;
 
+use ManageIt\PaygTax\PaygTax;
 use ManageIt\PaygTax\TaxScales\October2020\Nat1004Scale1;
 use ManageIt\PaygTax\Tests\Fixtures\Earning;
 use ManageIt\PaygTax\Tests\Fixtures\Payee;
@@ -55,8 +56,9 @@ class Nat1004Scale1Test extends TestCase
         Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->stsl = false;
+        // A person claiming the levy exemption but not the tax free threshold cannot claim the exemption.
         $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_FULL;
-        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
+        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
 
         $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_NONE;
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_COUPLE;
@@ -87,7 +89,12 @@ class Nat1004Scale1Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        $payg = PaygTax::new()
+            ->setPayer($payer)
+            ->setPayee($payee)
+            ->setEarning($earning);
+
+        Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
 
     /**
@@ -165,7 +172,12 @@ class Nat1004Scale1Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        $payg = PaygTax::new()
+            ->setPayer($payer)
+            ->setPayee($payee)
+            ->setEarning($earning);
+
+        Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
 
     /**
@@ -243,7 +255,12 @@ class Nat1004Scale1Test extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        Assert::assertEquals($withheld, $this->scale->getTaxWithheldAmount($payer, $payee, $earning));
+        $payg = PaygTax::new()
+            ->setPayer($payer)
+            ->setPayee($payee)
+            ->setEarning($earning);
+
+        Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
 
     /**
