@@ -42,7 +42,7 @@ class Nat4466Test extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_SINGLE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2022-10-15');
 
         Assert::assertTrue($this->scale1->isEligible($payer, $payee, $earning));
         Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
@@ -122,7 +122,7 @@ class Nat4466Test extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_SINGLE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2022-10-15');
         $earning->gross = $gross;
 
         // Scale 1 - Single

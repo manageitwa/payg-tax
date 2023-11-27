@@ -34,7 +34,7 @@ class Nat75331Test extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_SINGLE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2022-10-15');
 
         Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
 
@@ -92,7 +92,7 @@ class Nat75331Test extends TestCase
         $payee->stsl = false;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2022-10-15');
         $earning->gross = $gross;
 
         // Scale 1 - Income Bracket 1 (less than or equal to $45,000)

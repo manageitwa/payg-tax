@@ -58,7 +58,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat1004Scale1::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -77,7 +77,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat1004Scale2::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -96,7 +96,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat1004Scale3::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -115,7 +115,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat1004Scale4::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -134,7 +134,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat1004Scale5::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -153,7 +153,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat1004Scale6::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -172,7 +172,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat3539Scale1::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -191,7 +191,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat3539Scale2::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -210,7 +210,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat3539Scale3::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -229,7 +229,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat3539Scale5::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -248,7 +248,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat3539Scale6::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -267,7 +267,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_SINGLE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat4466Single::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -286,7 +286,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_ILLNESS_SEPARATED;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat4466IllnessSeparated::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -305,7 +305,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_COUPLE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat4466Couple::class, $this->classifier->getTaxScale($payer, $payee, $earning));
@@ -324,7 +324,7 @@ class BaseClassifierTest extends TestCase
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-10');
+        $earning->date = new \DateTime('2020-10-15');
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat75331::class, $this->classifier->getTaxScale($payer, $payee, $earning));

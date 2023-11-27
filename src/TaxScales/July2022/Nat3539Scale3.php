@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ManageIt\PaygTax\TaxScales\October2020;
+namespace ManageIt\PaygTax\TaxScales\July2022;
 
 use ManageIt\PaygTax\Entities\Earning;
 use ManageIt\PaygTax\Entities\Payee;
@@ -13,7 +13,7 @@ use ManageIt\PaygTax\Utilities\Date;
 /**
  * Tax scale for foreign residents (not working holiday makers) with an STSL debt.
  *
- * This tax scale has come into effect from 13 October 2020.
+ * This tax scale has come into effect from 1 July 2022.
  */
 class Nat3539Scale3 extends BaseCoefficientScale
 {
@@ -21,25 +21,25 @@ class Nat3539Scale3 extends BaseCoefficientScale
      * {@inheritDoc}
      */
     protected array $coefficients = [
-        896 => [0.3250, 0.3250],
-        1035 => [0.3350, 0.3250],
-        1097 => [0.3450, 0.3250],
-        1163 => [0.3500, 0.3250],
-        1232 => [0.3550, 0.3250],
-        1306 => [0.3600, 0.3250],
-        1385 => [0.3650, 0.3250],
-        1468 => [0.3700, 0.3250],
-        1556 => [0.3750, 0.3250],
-        1649 => [0.3800, 0.3250],
-        1748 => [0.3850, 0.3250],
-        1853 => [0.3900, 0.3250],
-        1965 => [0.3950, 0.3250],
-        2082 => [0.4000, 0.3250],
-        2205 => [0.4050, 0.3250],
+        930 => [0.3250, 0.3250],
+        1073 => [0.3350, 0.3250],
+        1138 => [0.3450, 0.3250],
+        1206 => [0.3500, 0.3250],
+        1278 => [0.3550, 0.3250],
+        1355 => [0.3600, 0.3250],
+        1436 => [0.3650, 0.3250],
+        1523 => [0.3700, 0.3250],
+        1614 => [0.3750, 0.3250],
+        1711 => [0.3800, 0.3250],
+        1814 => [0.3850, 0.3250],
+        1923 => [0.3900, 0.3250],
+        2038 => [0.3950, 0.3250],
+        2160 => [0.4000, 0.3250],
+        2290 => [0.4050, 0.3250],
         2307 => [0.4100, 0.3250],
-        2340 => [0.4550, 103.8462],
-        2480 => [0.4600, 103.8462],
-        2629 => [0.4650, 103.8462],
+        2427 => [0.4550, 103.8462],
+        2573 => [0.4600, 103.8462],
+        2727 => [0.4650, 103.8462],
         3461 => [0.4700, 103.8462],
         999999999 => [0.55, 380.7692],
     ];
@@ -49,8 +49,8 @@ class Nat3539Scale3 extends BaseCoefficientScale
      */
     public function isEligible(Payer $payer, Payee $payee, Earning $earning): bool
     {
-        // Only applies between 13 October 2020 and 30 June 2022.
-        if (!Date::between($earning->getPayDate(), '2020-10-13', '2022-06-30')) {
+        // Only applies between 1 July 2022 and 30 June 2023.
+        if (!Date::between($earning->getPayDate(), '2022-07-01', '2023-06-30')) {
             return false;
         }
 
