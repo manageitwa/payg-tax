@@ -7,8 +7,6 @@ use ManageIt\PaygTax\Entities\Classifier;
 use ManageIt\PaygTax\Entities\Earning;
 use ManageIt\PaygTax\Entities\Payee;
 use ManageIt\PaygTax\Entities\Payer;
-use ManageIt\PaygTax\Exceptions\NoTaxScalesException;
-use ManageIt\PaygTax\Exceptions\MultipleTaxScalesException;
 
 /**
  * Tax calculator.

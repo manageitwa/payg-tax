@@ -15,6 +15,7 @@ class Payee implements PayeeInterface
     public int $seniorsOffset = self::SENIORS_OFFSET_NONE;
     /** @var \ManageIt\PaygTax\Entities\TaxAdjustment[] */
     public array $adjustments = [];
+    public float $ytdGross = 0;
 
     public function getResidencyStatus(): int
     {
@@ -54,5 +55,10 @@ class Payee implements PayeeInterface
     public function getSeniorsOffset(): int
     {
         return $this->seniorsOffset;
+    }
+
+    public function getYtdGross(): float
+    {
+        return $this->ytdGross;
     }
 }

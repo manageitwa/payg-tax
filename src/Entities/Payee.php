@@ -73,13 +73,13 @@ interface Payee
     /**
      * The payee is claiming the Seniors Offset and is single.
      */
-    public const SENIORS_OFFSET_SINGLE = 0;
+    public const SENIORS_OFFSET_SINGLE = 1;
 
     /**
      * The payee is claiming the Seniors Offset and was married or in a de-facto relationship, but is now separated
      * due to illness.
      */
-    public const SENIORS_OFFSET_ILLNESS_SEPARATED = 1;
+    public const SENIORS_OFFSET_ILLNESS_SEPARATED = 3;
 
     /**
      * The payee is claiming the Seniors Offset and is married or in a de-facto relationship.
@@ -170,4 +170,12 @@ interface Payee
      * @return \ManageIt\PaygTax\Entities\TaxAdjustment[]
      */
     public function getAdjustments(): array;
+
+    /**
+     * Gets the year-to-date gross amount for this payee.
+     *
+     * This is only used for Working Holiday Makers in which their tax is percentaged based on a yearly income. It
+     * should NOT include the current earning.
+     */
+    public function getYtdGross(): float;
 }
