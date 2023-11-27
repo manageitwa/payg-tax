@@ -135,6 +135,11 @@ class PaygTax
         foreach ($this->payee->getAdjustments() as $adjustment) {
             if ($adjustment->isEligible($this->payer, $this->payee, $scale, $this->earning)) {
                 $tax += $adjustment->getAdjustmentAmount($this->payer, $this->payee, $scale, $this->earning);
+
+                // Tax cannot be a negative number
+                if ($tax < 0) {
+                    $tax = 0;
+                }
             }
         }
 
