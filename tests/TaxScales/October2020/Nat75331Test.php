@@ -80,7 +80,7 @@ class Nat75331Test extends TestCase
         float $incomeBracket2, // <= 120000
         float $incomeBracket3, // <= 180000
         float $incomeBracket4, // > 180000
-        float $noTfn, // No TFN
+        float $noTfn // No TFN
     ): void {
         $payer = new Payer();
 
