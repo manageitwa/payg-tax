@@ -43,6 +43,7 @@ class Date
      * Determines if the date is between two dates, inclusive.
      *
      * @param \DateTimeInterface|string|int $date
+     * @param \DateTimeInterface|string|int $from
      * @param \DateTimeInterface|string|int $to
      */
     public static function between($date, $from, $to): bool
