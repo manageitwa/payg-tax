@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ManageIt\PaygTax;
 
 use ManageIt\PaygTax\Classifiers\BaseClassifier;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ManageIt\PaygTax\Adjustments;
 
 use ManageIt\PaygTax\Entities\Payer;

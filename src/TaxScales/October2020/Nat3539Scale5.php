@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ManageIt\PaygTax\TaxScales\October2020;
 
 use ManageIt\PaygTax\Entities\Earning;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ManageIt\PaygTax\Utilities;
 
 use Carbon\Carbon;
