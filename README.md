@@ -2,6 +2,8 @@
 
 This library allows for the calculation of income tax on gross payments as per the rules of the [Australian Tax Office](https://www.ato.gov.au). It supports all standard tax scales and the most common tax offsets and adjustments, including the Seniors and Pensioners Offset, Medicare Levy Reduction and Exemption, Study and Training Support Loans and Working Holiday Makers.
 
+This library only supports calculating tax for gross payments after 13th October 2020 (FY2020-21 tax table release).
+
 ## Requirements
 
 - PHP 7.4 or PHP 8.0, and above.
