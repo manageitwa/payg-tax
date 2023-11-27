@@ -2,7 +2,7 @@
     "name": "manageitwa/payg-tax",
     "description": "Calculate PAYG tax withholding amounts for employees",
     "type": "library",
-    "license": "proprietary",
+    "license": "GPL-3.0-only",
     "authors": [
         {
             "name": "Ben Thomson",
