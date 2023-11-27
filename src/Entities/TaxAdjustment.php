@@ -27,8 +27,6 @@ interface TaxAdjustment
      * Gets the amount that should be subtracted from or added to the tax withheld for this earning.
      *
      * This method will only be called if the adjustment is eligible for this earning.
-     *
-     * If this
      */
     public function getAdjustmentAmount(
         \ManageIt\PaygTax\Entities\Payer $payer,
