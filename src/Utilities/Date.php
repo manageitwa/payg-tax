@@ -40,6 +40,17 @@ class Date
     }
 
     /**
+     * Determines if the date is between two dates, inclusive.
+     *
+     * @param \DateTimeInterface|string|int $date
+     * @param \DateTimeInterface|string|int $to
+     */
+    public static function between($date, $from, $to): bool
+    {
+        return static::from($date, $from) && static::to($date, $to);
+    }
+
+    /**
      * Converts a date to a Carbon instance.
      *
      * This method accepts a DateTimeInterface instance, a date string or an integer timestamp.
