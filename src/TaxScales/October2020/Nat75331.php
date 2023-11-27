@@ -36,6 +36,11 @@ class Nat75331 implements TaxScale
             return false;
         }
 
+        // Only applies if the payer is registered as a Working Holiday Maker employer.
+        if (!$payer->isRegisteredWhmEmployer()) {
+            return false;
+        }
+
         return true;
     }
 

@@ -36,8 +36,11 @@ class Nat1004Scale3 extends BaseCoefficientScale
             return false;
         }
 
-        // Only applies to foreign residents.
-        if ($payee->getResidencyStatus() !== \ManageIt\PaygTax\Entities\Payee::FOREIGN_RESIDENT) {
+        // Only applies to foreign residents (or Working Holiday Makers whose employers are not registered)
+        if (
+            $payee->getResidencyStatus() === \ManageIt\PaygTax\Entities\Payee::RESIDENT
+            || ($payee->getResidencyStatus() === \ManageIt\PaygTax\Entities\Payee::WORKING_HOLIDAY_MAKER && $payer->isRegisteredWhmEmployer())
+        ) {
             return false;
         }
 

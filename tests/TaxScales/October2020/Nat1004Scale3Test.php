@@ -46,6 +46,10 @@ class Nat1004Scale3Test extends TestCase
         $payee->residencyStatus = Payee::WORKING_HOLIDAY_MAKER;
         Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
 
+        $payer->whmEmployer = false;
+        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
+
+        $payer->whmEmployer = true;
         $payee->residencyStatus = Payee::FOREIGN_RESIDENT;
         $payee->tfn = false;
         Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));

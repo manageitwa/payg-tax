@@ -34,8 +34,8 @@ class Nat1004Scale4 implements TaxScale
             return false;
         }
 
-        // Working Holiday Makers still use their own tax scale.
-        if ($payee->getResidencyStatus() === Payee::WORKING_HOLIDAY_MAKER) {
+        // Working Holiday Makers still use their own tax scale if their payer is registered as a WHM employer.
+        if ($payee->getResidencyStatus() === Payee::WORKING_HOLIDAY_MAKER  && $payer->isRegisteredWhmEmployer()) {
             return false;
         }
 
