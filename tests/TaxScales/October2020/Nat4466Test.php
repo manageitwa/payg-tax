@@ -109,7 +109,7 @@ class Nat4466Test extends TestCase
         int $gross,
         float $scale1,
         float $scale2,
-        float $scale3,
+        float $scale3
     ): void {
         $payer = new Payer();
 
