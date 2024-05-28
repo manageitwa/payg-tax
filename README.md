@@ -22,11 +22,11 @@ composer require manageitwa/payg-tax
 
 This library is built to be able to be slotted in to most PHP software. The library publishes a number of interfaces within the `src/Entities` directory. At a bare minimum, you would need to fulfill the following interfaces:
 
-- `Payer`: A payer record. The payer is generally the employer or the entity who is paying the payee.
+- `Payer`: A payer record. The payer is the employer or the entity who is paying the payee.
 - `Payee`: A payee record. The payee is the employee or entity who is being paid the gross income and needs income tax to be withheld from their earning.
 - `Earning`: An earning record. The earning is a single gross amount of income that is paid either ad-hoc or as part of a pay cycle to the payee.
 
-In general, you would like implement these interfaces into a model record for each of these entities.
+In general, you would likely implement these interfaces into a model record for each of these entities.
 
 ```php
 <?php
