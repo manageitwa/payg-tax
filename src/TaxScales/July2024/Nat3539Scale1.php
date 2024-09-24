@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ManageIt\PaygTax\TaxScales\July2023;
+namespace ManageIt\PaygTax\TaxScales\July2024;
 
 use ManageIt\PaygTax\Entities\Earning;
 use ManageIt\PaygTax\Entities\Payee;
@@ -13,7 +13,7 @@ use ManageIt\PaygTax\Utilities\Date;
 /**
  * Tax scale for Australian residents not claiming the tax free threshold and have an STSL debt.
  *
- * This tax scale has come into effect from 1 July 2023.
+ * This tax scale has come into effect from 1st July 2024.
  */
 class Nat3539Scale1 extends BaseCoefficientScale
 {
@@ -21,31 +21,30 @@ class Nat3539Scale1 extends BaseCoefficientScale
      * {@inheritDoc}
      */
     protected array $coefficients = [
-        88 => [0.1900, 0.1900],
-        371 => [0.2348, 3.9639],
-        515 => [0.2190, -1.9003],
-        641 => [0.3477, 64.4297],
-        794 => [0.3577, 64.4297],
-        863 => [0.3677, 64.4297],
-        932 => [0.3727, 64.4297],
-        936 => [0.3700, 61.9132],
-        1013 => [0.3750, 61.9132],
-        1095 => [0.3800, 61.9132],
-        1181 => [0.3850, 61.9132],
-        1273 => [0.3900, 61.9132],
-        1371 => [0.3950, 61.9132],
-        1474 => [0.4000, 61.9132],
-        1583 => [0.4050, 61.9132],
-        1699 => [0.4100, 61.9132],
-        1822 => [0.4150, 61.9132],
-        1953 => [0.4200, 61.9132],
-        1957 => [0.4250, 61.9132],
-        2091 => [0.4700, 150.0093],
-        2237 => [0.4750, 150.0093],
-        2393 => [0.4800, 150.0093],
-        2557 => [0.4850, 150.0093],
-        3111 => [0.4900, 150.0093],
-        999999999 => [0.5700, 398.9324],
+        150 => [0.1600, 0.1600],
+        371 => [0.2117, 7.7550],
+        515 => [0.1890, -0.6702],
+        696 => [0.3227, 68.2367],
+        858 => [0.3327, 68.2367],
+        931 => [0.3427, 68.2367],
+        1008 => [0.3450, 65.7202],
+        1089 => [0.3500, 65.7202],
+        1175 => [0.3550, 65.7202],
+        1267 => [0.3600, 65.7202],
+        1364 => [0.3650, 65.7202],
+        1467 => [0.3700, 65.7202],
+        1576 => [0.3750, 65.7202],
+        1692 => [0.3800, 65.7202],
+        1814 => [0.3850, 65.7202],
+        1944 => [0.3900, 65.7202],
+        2082 => [0.3950, 65.7202],
+        2228 => [0.4000, 65.7202],
+        2246 => [0.4050, 65.7202],
+        2382 => [0.4750, 222.9510],
+        2546 => [0.4800, 222.9510],
+        2720 => [0.4850, 222.9510],
+        3303 => [0.4900, 222.9510],
+        999999999 => [0.5700, 487.2587],
     ];
 
     /**
@@ -53,8 +52,8 @@ class Nat3539Scale1 extends BaseCoefficientScale
      */
     public function isEligible(Payer $payer, Payee $payee, Earning $earning): bool
     {
-        // Only applies after 1 July 2023 to 30 June 2024.
-        if (!Date::between($earning->getPayDate(), '2023-07-01', '2024-06-30')) {
+        // Only applies after 1 July 2024.
+        if (!Date::from($earning->getPayDate(), '2024-07-01')) {
             return false;
         }
 

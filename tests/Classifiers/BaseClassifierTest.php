@@ -41,7 +41,7 @@ class BaseClassifierTest extends TestCase
         $scales = $this->classifier->availableTaxScales();
 
         Assert::assertIsArray($scales);
-        Assert::assertCount(25, $scales);
+        Assert::assertCount(30, $scales);
         Assert::assertContainsOnlyInstancesOf(\ManageIt\PaygTax\Entities\TaxScale::class, $scales);
     }
 

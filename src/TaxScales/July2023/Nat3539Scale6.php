@@ -56,8 +56,8 @@ class Nat3539Scale6 extends BaseCoefficientScale
      */
     public function isEligible(Payer $payer, Payee $payee, Earning $earning): bool
     {
-        // Only applies after 1 July 2023
-        if (!Date::from($earning->getPayDate(), '2023-07-01')) {
+        // Only applies after 1 July 2023 to 30 June 2024.
+        if (!Date::between($earning->getPayDate(), '2023-07-01', '2024-06-30')) {
             return false;
         }
 

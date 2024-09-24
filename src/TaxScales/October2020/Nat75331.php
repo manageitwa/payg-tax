@@ -26,8 +26,8 @@ class Nat75331 implements TaxScale
      */
     public function isEligible(Payer $payer, Payee $payee, Earning $earning): bool
     {
-        // Only applies after 13 October 2020.
-        if (!Date::from($earning->getPayDate(), '2020-10-13')) {
+        // Only applies after 13 October 2020 and before 1 July 2024.
+        if (!Date::between($earning->getPayDate(), '2020-10-13', '2024-06-30')) {
             return false;
         }
 

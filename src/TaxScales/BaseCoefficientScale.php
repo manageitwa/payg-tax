@@ -38,6 +38,16 @@ abstract class BaseCoefficientScale implements TaxScale
     abstract public function isEligible(Payer $payer, Payee $payee, Earning $earning): bool;
 
     /**
+     * Gets the applicable coefficients for the given payer, payee, and earning.
+     *
+     * @return array<int, array<int|float>>
+     */
+    public function getCoefficients(Payer $payer, Payee $payee, Earning $earning): array
+    {
+        return $this->coefficients;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getTaxWithheldAmount(Payer $payer, Payee $payee, Earning $earning): float
@@ -54,19 +64,20 @@ abstract class BaseCoefficientScale implements TaxScale
         );
 
         // Determine applicable coefficient
-        $coefficient = null;
-        ksort($this->coefficients, SORT_NUMERIC);
+        $selectedCoefficient = null;
+        $coefficients = $this->getCoefficients($payer, $payee, $earning);
+        ksort($coefficients, SORT_NUMERIC);
 
-        for ($i = 0; $i < count($this->coefficients); $i++) {
-            $maxGross = array_keys($this->coefficients)[$i];
+        for ($i = 0; $i < count($coefficients); $i++) {
+            $maxGross = array_keys($coefficients)[$i];
 
             if ($weeklyGross < $maxGross) {
-                $coefficient = $this->coefficients[$maxGross];
+                $selectedCoefficient = $coefficients[$maxGross];
                 break;
             }
         }
 
-        if (is_null($coefficient)) {
+        if (is_null($selectedCoefficient)) {
             throw new \Exception(sprintf(
                 'Unable to determine applicable coefficient for gross amount of $%s in scale %s',
                 $earning->getGrossAmount(),
@@ -75,12 +86,12 @@ abstract class BaseCoefficientScale implements TaxScale
         }
 
         // Short circuit - if both coefficients are zero, no tax
-        if ($coefficient[0] === 0 && $coefficient[1] === 0) {
+        if ($selectedCoefficient[0] === 0 && $selectedCoefficient[1] === 0) {
             return 0;
         }
 
         // Calculate tax withheld
-        $withheld = Math::round(($weeklyGross * $coefficient[0]) - $coefficient[1]);
+        $withheld = Math::round(($weeklyGross * $selectedCoefficient[0]) - $selectedCoefficient[1]);
 
         // Convert back to the pay cycle's amount
         return $this->convertWeeklyTax($payee->getPayCycle(), $withheld);
