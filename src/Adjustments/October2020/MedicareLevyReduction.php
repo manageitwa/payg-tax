@@ -7,14 +7,11 @@ namespace ManageIt\PaygTax\Adjustments\October2020;
 use ManageIt\PaygTax\Entities\Payer;
 use ManageIt\PaygTax\Entities\Payee;
 use ManageIt\PaygTax\Entities\Earning;
-use ManageIt\PaygTax\Entities\TaxAdjustment;
 use ManageIt\PaygTax\Entities\TaxScale;
-use ManageIt\PaygTax\TaxScales\October2020\Nat1004Scale2;
-use ManageIt\PaygTax\TaxScales\October2020\Nat1004Scale6;
 use ManageIt\PaygTax\Traits\WeeklyConversion;
 use ManageIt\PaygTax\Utilities\Math;
 
-class MedicareLevyReduction implements TaxAdjustment
+class MedicareLevyReduction
 {
     use WeeklyConversion;
 
@@ -34,30 +31,6 @@ class MedicareLevyReduction implements TaxAdjustment
         $this->children = $children;
     }
 
-    public function isEligible(Payer $payer, Payee $payee, TaxScale $taxScale, Earning $earning): bool
-    {
-        // The tax scale must be either of the following tax scales
-        if (
-            $taxScale instanceof Nat1004Scale2 === false
-            && $taxScale instanceof Nat1004Scale6 === false
-        ) {
-            return false;
-        }
-
-        // The payee must be claiming to have a spouse or children
-        if ($this->spouse === false && $this->children === 0) {
-            return false;
-        }
-
-        // If claiming a half Medicare levy exemption (NAT 1004 Scale 6), the payee must be claiming children - the
-        // reduction is not applicable to payees who only have a spouse
-        if ($taxScale instanceof Nat1004Scale6 && $this->children === 0) {
-            return false;
-        }
-
-        return true;
-    }
-
     public function getAdjustmentAmount(Payer $payer, Payee $payee, TaxScale $taxScale, Earning $earning): float
     {
         $weeklyGross = $this->getWeeklyGross(
@@ -65,7 +38,7 @@ class MedicareLevyReduction implements TaxAdjustment
             $earning->getGrossAmount(),
         );
 
-        if ($taxScale instanceof Nat1004Scale2) {
+        if ($payee->getMedicareLevyExemption() === Payee::MEDICARE_LEVY_EXEMPTION_NONE) {
             // Weekly gross must be $438 or higher, but less than the shading out point
             if ($weeklyGross < 438 || $weeklyGross >= $this->getShadingOutPoint()) {
                 return 0;
@@ -96,7 +69,7 @@ class MedicareLevyReduction implements TaxAdjustment
                     )
                 ) * -1;
             }
-        } elseif ($taxScale instanceof Nat1004Scale6) {
+        } elseif ($payee->getMedicareLevyExemption() === Payee::MEDICARE_LEVY_EXEMPTION_HALF) {
             // Weekly gross must be $739 or higher, but less than the shading out point
             if ($weeklyGross < 739 || $weeklyGross >= $this->getShadingOutPoint()) {
                 return 0;

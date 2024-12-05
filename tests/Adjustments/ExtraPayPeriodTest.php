@@ -3,7 +3,7 @@
 namespace ManageIt\PaygTax\Tests\Adjustments;
 
 use ManageIt\PaygTax\Adjustments\ExtraPayPeriod;
-use ManageIt\PaygTax\TaxScales\October2020\Nat1004Scale2;
+use ManageIt\PaygTax\TaxScales\Nat1004;
 use ManageIt\PaygTax\Tests\Fixtures\Earning;
 use ManageIt\PaygTax\Tests\Fixtures\Payee;
 use ManageIt\PaygTax\Tests\Fixtures\Payer;
@@ -34,7 +34,7 @@ class ExtraPayPeriodTest extends TestCase
         $earning = new Earning();
         $earning->date = new \DateTime('2022-10-10');
 
-        $scale = new Nat1004Scale2();
+        $scale = new Nat1004();
 
         Assert::assertTrue($this->adjustment->isEligible($payer, $payee, $scale, $earning));
 
@@ -66,7 +66,7 @@ class ExtraPayPeriodTest extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        $scale = new Nat1004Scale2();
+        $scale = new Nat1004();
 
         Assert::assertEquals($adjusted, $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning));
     }
@@ -145,7 +145,7 @@ class ExtraPayPeriodTest extends TestCase
         $earning->date = new \DateTime('2022-10-10');
         $earning->gross = $gross;
 
-        $scale = new Nat1004Scale2();
+        $scale = new Nat1004();
 
         Assert::assertEquals($adjusted, $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning));
     }

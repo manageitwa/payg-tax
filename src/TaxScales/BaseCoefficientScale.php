@@ -16,7 +16,7 @@ abstract class BaseCoefficientScale implements TaxScale
     use WeeklyConversion;
 
     /**
-     * The coefficients to be applied to the earnings amount.
+     * Gets the applicable coefficients for the given payer, payee, and earning.
      *
      * This must be an array of coefficients, with the key being the maximum amount of gross earning to which the
      * coefficients will apply to, and the value being an array of two values: the percentage of tax to be withheld,
@@ -28,24 +28,9 @@ abstract class BaseCoefficientScale implements TaxScale
      * ['max gross amount' => ['percentage', 'adjustment']]
      * ```
      *
-     * @var array<int, array<int, int|float>>
-     */
-    protected array $coefficients = [];
-
-    /**
-     * {@inheritDoc}
-     */
-    abstract public function isEligible(Payer $payer, Payee $payee, Earning $earning): bool;
-
-    /**
-     * Gets the applicable coefficients for the given payer, payee, and earning.
-     *
      * @return array<int, array<int|float>>
      */
-    public function getCoefficients(Payer $payer, Payee $payee, Earning $earning): array
-    {
-        return $this->coefficients;
-    }
+    abstract public function getCoefficients(Payer $payer, Payee $payee, Earning $earning): array;
 
     /**
      * {@inheritDoc}

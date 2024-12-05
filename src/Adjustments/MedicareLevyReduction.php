@@ -4,46 +4,80 @@ declare(strict_types=1);
 
 namespace ManageIt\PaygTax\Adjustments;
 
-use ManageIt\PaygTax\Adjustments\October2020\MedicareLevyReduction as October2020Reduction;
-use ManageIt\PaygTax\Adjustments\July2024\MedicareLevyReduction as July2024Reduction;
+use ManageIt\PaygTax\Entities\Payer;
+use ManageIt\PaygTax\Entities\Payee;
 use ManageIt\PaygTax\Entities\Earning;
+use ManageIt\PaygTax\Entities\TaxAdjustment;
+use ManageIt\PaygTax\Entities\TaxScale;
+use ManageIt\PaygTax\Traits\WeeklyConversion;
 use ManageIt\PaygTax\Utilities\Date;
+use ManageIt\PaygTax\Utilities\Math;
+use ManageIt\PaygTax\Adjustments;
 
-/**
- * Helper class that can be used to get the correct Medicare Levy Reduction instance for a given date.
- */
-class MedicareLevyReduction
+class MedicareLevyReduction implements TaxAdjustment
 {
+    use WeeklyConversion;
+
     /**
-     * Returns the correct Medicare Levy Reduction instance for the given date.
-     *
-     * If the date is before October 2020, this method will return null.
-     *
-     * @param \DateTimeInterface|string|int $date
-     * @return October2020Reduction|July2024Reduction|null
+     * Whether the payee is claiming to have a spouse.
      */
-    public static function forDate($date)
+    public bool $spouse = true;
+
+    /**
+     * The number of children the payee is claiming for the Medicare Levy Reduction.
+     */
+    public int $children = 0;
+
+    public function __construct(bool $spouse = true, int $children = 0)
     {
-        if (Date::from($date, '2024-07-01')) {
-            return new July2024Reduction();
-        }
-
-        if (Date::from($date, '2020-10-13')) {
-            return new October2020Reduction();
-        }
-
-        return null;
+        $this->spouse = $spouse;
+        $this->children = $children;
     }
 
-    /**
-     * Returns the correct Medicare Levy Reduction instance for the given earning payment date.
-     *
-     * If the date is before October 2020, this method will return null.
-     *
-     * @return October2020Reduction|July2024Reduction|null
-     */
-    public static function forEarning(Earning $earning)
+    public function isEligible(Payer $payer, Payee $payee, TaxScale $taxScale, Earning $earning): bool
     {
-        return static::forDate($earning->getPayDate());
+        // Not eligible if you do not have a TFN
+        if ($payee->hasTfnNumber() === false) {
+            return false;
+        }
+
+        // Not eligible if you're claiming a full Medicare levy exemption
+        if ($payee->getMedicareLevyExemption() === Payee::MEDICARE_LEVY_EXEMPTION_FULL) {
+            return false;
+        }
+
+        // Not eligible if you're not claiming the tax-free threshold
+        if ($payee->claimsTaxFreeThreshold() === false) {
+            return false;
+        }
+
+        // Not eligible if you're a foreign resident or Working Holiday Maker
+        if ($payee->getResidencyStatus() !== Payee::RESIDENT) {
+            return false;
+        }
+
+        // If claiming a half Medicare levy exemption (NAT 1004 Scale 6), the payee must be claiming children - the
+        // reduction is not applicable to payees who only have a spouse
+        if ($payee->getMedicareLevyExemption() === Payee::MEDICARE_LEVY_EXEMPTION_HALF && $this->children === 0) {
+            return false;
+        }
+
+        // The payee must be claiming to have a spouse or children
+        if ($this->spouse === false && $this->children === 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getAdjustmentAmount(Payer $payer, Payee $payee, TaxScale $taxScale, Earning $earning): float
+    {
+        if (Date::from($earning->getPayDate(), '2024-07-01')) {
+            $adjustment = new Adjustments\July2024\MedicareLevyReduction($this->spouse, $this->children);
+            return $adjustment->getAdjustmentAmount($payer, $payee, $taxScale, $earning);
+        }
+
+        $adjustment = new Adjustments\October2020\MedicareLevyReduction($this->spouse, $this->children);
+        return $adjustment->getAdjustmentAmount($payer, $payee, $taxScale, $earning);
     }
 }

@@ -3,7 +3,7 @@
 namespace ManageIt\PaygTax\Tests\TaxScales\October2020;
 
 use ManageIt\PaygTax\PaygTax;
-use ManageIt\PaygTax\TaxScales\October2020\Nat75331;
+use ManageIt\PaygTax\TaxScales\Nat75331;
 use ManageIt\PaygTax\Tests\Fixtures\Earning;
 use ManageIt\PaygTax\Tests\Fixtures\Payee;
 use ManageIt\PaygTax\Tests\Fixtures\Payer;
@@ -20,55 +20,6 @@ class Nat75331Test extends TestCase
     public function setUp(): void
     {
         $this->scale = new Nat75331();
-    }
-
-    public function testEligibility(): void
-    {
-        $payer = new Payer();
-
-        $payee = new Payee();
-        $payee->residencyStatus = Payee::WORKING_HOLIDAY_MAKER;
-        $payee->tfn = true;
-        $payee->claimsTaxFreeThreshold = false;
-        $payee->stsl = true;
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_SINGLE;
-
-        $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-15');
-
-        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
-
-        $payee->residencyStatus = Payee::FOREIGN_RESIDENT;
-        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
-
-        $payee->residencyStatus = Payee::RESIDENT;
-        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
-
-        $payee->residencyStatus = Payee::WORKING_HOLIDAY_MAKER;
-        $payee->tfn = false;
-        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
-
-        $payee->tfn = true;
-        $payee->claimsTaxFreeThreshold = true;
-        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
-
-        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_FULL;
-        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
-
-        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_HALF;
-        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
-
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_COUPLE;
-        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
-
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_ILLNESS_SEPARATED;
-        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
-
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
-        Assert::assertTrue($this->scale->isEligible($payer, $payee, $earning));
-
-        $earning->date = new \DateTime('2019-08-01');
-        Assert::assertFalse($this->scale->isEligible($payer, $payee, $earning));
     }
 
     /**

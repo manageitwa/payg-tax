@@ -2,10 +2,8 @@
 
 namespace ManageIt\PaygTax\Tests\Adjustments\July2024;
 
-use ManageIt\PaygTax\Adjustments\July2024\MedicareLevyReduction;
-use ManageIt\PaygTax\TaxScales\July2024\Nat1004Scale2;
-use ManageIt\PaygTax\TaxScales\October2020\Nat1004Scale4;
-use ManageIt\PaygTax\TaxScales\July2024\Nat1004Scale6;
+use ManageIt\PaygTax\Adjustments\MedicareLevyReduction;
+use ManageIt\PaygTax\TaxScales\Nat1004;
 use ManageIt\PaygTax\Tests\Fixtures\Earning;
 use ManageIt\PaygTax\Tests\Fixtures\Payee;
 use ManageIt\PaygTax\Tests\Fixtures\Payer;
@@ -13,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
 
 /**
- * @covers \ManageIt\PaygTax\Adjustments\July2024\MedicareLevyReduction
+ * @covers \ManageIt\PaygTax\Adjustments\MedicareLevyReduction
  */
 class MedicareLevyReductionTest extends TestCase
 {
@@ -33,34 +31,39 @@ class MedicareLevyReductionTest extends TestCase
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = true;
 
-        $scale = new Nat1004Scale2();
+        $scale = new Nat1004();
 
         $earning = new Earning();
         $earning->date = new \DateTime('2024-10-10');
         $earning->gross = 1000;
 
-        Assert::assertTrue($this->adjustment->isEligible($payer, $payee, $scale, $earning));
-
-        $scale = new Nat1004Scale6();
-        Assert::assertFalse($this->adjustment->isEligible($payer, $payee, $scale, $earning));
-
-        $this->adjustment->children = 1;
-        Assert::assertTrue($this->adjustment->isEligible($payer, $payee, $scale, $earning));
-
-        $scale = new Nat1004Scale4();
-        Assert::assertFalse($this->adjustment->isEligible($payer, $payee, $scale, $earning));
-
-        $scale = new Nat1004Scale2();
-        $this->adjustment->spouse = false;
-        $this->adjustment->children = 0;
-        Assert::assertFalse($this->adjustment->isEligible($payer, $payee, $scale, $earning));
-
-        $this->adjustment->children = 1;
-        Assert::assertTrue($this->adjustment->isEligible($payer, $payee, $scale, $earning));
-
-        $scale = new Nat1004Scale6();
         $this->adjustment->spouse = true;
+        Assert::assertTrue($this->adjustment->isEligible($payer, $payee, $scale, $earning));
+
+        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_FULL;
+        Assert::assertFalse($this->adjustment->isEligible($payer, $payee, $scale, $earning));
+
+        $this->adjustment->children = 1;
+        Assert::assertFalse($this->adjustment->isEligible($payer, $payee, $scale, $earning));
+
         $this->adjustment->children = 0;
+        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_HALF;
+        Assert::assertFalse($this->adjustment->isEligible($payer, $payee, $scale, $earning));
+
+        $this->adjustment->children = 1;
+        Assert::assertTrue($this->adjustment->isEligible($payer, $payee, $scale, $earning));
+
+        $payee->residencyStatus = Payee::FOREIGN_RESIDENT;
+        Assert::assertFalse($this->adjustment->isEligible($payer, $payee, $scale, $earning));
+
+        $payee->residencyStatus = Payee::RESIDENT;
+        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_NONE;
+        $this->adjustment->children = 0;
+        $this->adjustment->spouse = false;
+        Assert::assertFalse($this->adjustment->isEligible($payer, $payee, $scale, $earning));
+
+        $this->adjustment->spouse = true;
+        $payee->tfn = false;
         Assert::assertFalse($this->adjustment->isEligible($payer, $payee, $scale, $earning));
     }
 
@@ -88,7 +91,7 @@ class MedicareLevyReductionTest extends TestCase
         $earning->date = new \DateTime('2024-10-10');
         $earning->gross = $gross;
 
-        $scale = new Nat1004Scale2();
+        $scale = new Nat1004();
 
         $this->adjustment->spouse = true;
         $this->adjustment->children = 0;
@@ -191,7 +194,7 @@ class MedicareLevyReductionTest extends TestCase
         $earning->date = new \DateTime('2024-10-10');
         $earning->gross = $gross;
 
-        $scale = new Nat1004Scale6();
+        $scale = new Nat1004();
 
         $this->adjustment->spouse = true;
         $this->adjustment->children = 1;
@@ -291,7 +294,7 @@ class MedicareLevyReductionTest extends TestCase
         $earning->date = new \DateTime('2024-10-10');
         $earning->gross = $gross;
 
-        $scale = new Nat1004Scale2();
+        $scale = new Nat1004();
 
         $this->adjustment->spouse = true;
         $this->adjustment->children = 0;
@@ -394,7 +397,7 @@ class MedicareLevyReductionTest extends TestCase
         $earning->date = new \DateTime('2024-10-10');
         $earning->gross = $gross;
 
-        $scale = new Nat1004Scale6();
+        $scale = new Nat1004();
 
         $this->adjustment->spouse = true;
         $this->adjustment->children = 1;
@@ -494,7 +497,7 @@ class MedicareLevyReductionTest extends TestCase
         $earning->date = new \DateTime('2024-10-10');
         $earning->gross = $gross;
 
-        $scale = new Nat1004Scale2();
+        $scale = new Nat1004();
 
         $this->adjustment->spouse = true;
         $this->adjustment->children = 0;
@@ -597,7 +600,7 @@ class MedicareLevyReductionTest extends TestCase
         $earning->date = new \DateTime('2024-10-10');
         $earning->gross = $gross;
 
-        $scale = new Nat1004Scale6();
+        $scale = new Nat1004();
 
         $this->adjustment->spouse = true;
         $this->adjustment->children = 1;
