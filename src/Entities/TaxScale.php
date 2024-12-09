@@ -16,18 +16,6 @@ namespace ManageIt\PaygTax\Entities;
 interface TaxScale
 {
     /**
-     * Determines the eligibility of this scale.
-     *
-     * This method will be passed the payer, payee and earning. It should return `true` if the scale is eligible to be
-     * applied for this earning, and `false` otherwise.
-     */
-    public function isEligible(
-        \ManageIt\PaygTax\Entities\Payer $payer,
-        \ManageIt\PaygTax\Entities\Payee $payee,
-        \ManageIt\PaygTax\Entities\Earning $earning
-    ): bool;
-
-    /**
      * Gets the amount of tax that should be withheld from the gross earning.
      *
      * Note that this is pre-adjustment. Tax adjustments will be applied after this method is called.

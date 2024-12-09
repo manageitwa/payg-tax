@@ -3,9 +3,6 @@
 namespace ManageIt\PaygTax\Tests\TaxScales\October2020;
 
 use ManageIt\PaygTax\PaygTax;
-use ManageIt\PaygTax\TaxScales\October2020\Nat4466Single;
-use ManageIt\PaygTax\TaxScales\October2020\Nat4466IllnessSeparated;
-use ManageIt\PaygTax\TaxScales\October2020\Nat4466Couple;
 use ManageIt\PaygTax\Tests\Fixtures\Earning;
 use ManageIt\PaygTax\Tests\Fixtures\Payee;
 use ManageIt\PaygTax\Tests\Fixtures\Payer;
@@ -13,95 +10,10 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
 
 /**
- * @covers \ManageIt\PaygTax\TaxScales\October2020\Nat4466Single
- * @covers \ManageIt\PaygTax\TaxScales\October2020\Nat4466IllnessSeparated
- * @covers \ManageIt\PaygTax\TaxScales\October2020\Nat4466Couple
+ * @covers \ManageIt\PaygTax\TaxScales\Nat4466
  */
 class Nat4466Test extends TestCase
 {
-    protected Nat4466Single $scale1;
-    protected Nat4466IllnessSeparated $scale2;
-    protected Nat4466Couple $scale3;
-
-    public function setUp(): void
-    {
-        $this->scale1 = new Nat4466Single();
-        $this->scale2 = new Nat4466IllnessSeparated();
-        $this->scale3 = new Nat4466Couple();
-    }
-
-    public function testEligibility(): void
-    {
-        $payer = new Payer();
-
-        $payee = new Payee();
-        $payee->residencyStatus = Payee::RESIDENT;
-        $payee->tfn = true;
-        $payee->claimsTaxFreeThreshold = false;
-        $payee->stsl = true;
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_SINGLE;
-
-        $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-15');
-
-        Assert::assertTrue($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->residencyStatus = Payee::FOREIGN_RESIDENT;
-        Assert::assertTrue($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->residencyStatus = Payee::WORKING_HOLIDAY_MAKER;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->residencyStatus = Payee::RESIDENT;
-        $payee->tfn = false;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->tfn = true;
-        $payee->claimsTaxFreeThreshold = true;
-        Assert::assertTrue($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_FULL;
-        Assert::assertTrue($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_HALF;
-        Assert::assertTrue($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_COUPLE;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertTrue($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_ILLNESS_SEPARATED;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertTrue($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_SINGLE;
-        $earning->date = new \DateTime('2019-08-01');
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-    }
-
     /**
      * @dataProvider weeklyData
      */
@@ -118,7 +30,7 @@ class Nat4466Test extends TestCase
         $payee->residencyStatus = Payee::RESIDENT;
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = false;
-        $payee->stsl = true;
+        $payee->stsl = false;
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_SINGLE;
 
         $earning = new Earning();

@@ -1,6 +1,6 @@
 <?php
 
-namespace ManageIt\PaygTax\Tests\TaxScales\October2020;
+namespace ManageIt\PaygTax\Tests\TaxScales\July2024;
 
 use ManageIt\PaygTax\PaygTax;
 use ManageIt\PaygTax\TaxScales\Nat75331;
@@ -28,9 +28,9 @@ class Nat75331Test extends TestCase
     public function testWeeklyWithholding(
         int $gross,
         float $incomeBracket1, // <= 45000
-        float $incomeBracket2, // <= 120000
-        float $incomeBracket3, // <= 180000
-        float $incomeBracket4, // > 180000
+        float $incomeBracket2, // <= 135000
+        float $incomeBracket3, // <= 190000
+        float $incomeBracket4, // > 190000
         float $noTfn, // No TFN
         float $payerNotRegistered // Payer not registered as WHM employer
     ): void {
@@ -43,9 +43,10 @@ class Nat75331Test extends TestCase
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = false;
         $payee->stsl = false;
+        $payee->ytdGross = 450;
 
         $earning = new Earning();
-        $earning->date = new \DateTime('2022-10-15');
+        $earning->date = new \DateTime('2024-10-15');
         $earning->gross = $gross;
 
         // Scale 1 - Income Bracket 1 (less than or equal to $45,000)
@@ -57,7 +58,7 @@ class Nat75331Test extends TestCase
 
         Assert::assertEquals($incomeBracket1, $payg->getTaxWithheldAmount());
 
-        // Scale 2 - Income Bracket 2 (more than $45,000, less than or equal to $120,000)
+        // Scale 2 - Income Bracket 2 (more than $45,000, less than or equal to $135,000)
 
         $payee->ytdGross = 45020;
 
@@ -68,9 +69,9 @@ class Nat75331Test extends TestCase
 
         Assert::assertEquals($incomeBracket2, $payg->getTaxWithheldAmount());
 
-        // Scale 3 - Income Bracket 3 (more than $120,000, less than or equal to $180,000)
+        // Scale 3 - Income Bracket 3 (more than $135,000, less than or equal to $190,000)
 
-        $payee->ytdGross = 120020;
+        $payee->ytdGross = 135020;
 
         $payg = PaygTax::new()
             ->setPayer($payer)
@@ -79,9 +80,9 @@ class Nat75331Test extends TestCase
 
         Assert::assertEquals($incomeBracket3, $payg->getTaxWithheldAmount());
 
-        // Scale 4 - Income Bracket 4 (more than $180,000)
+        // Scale 4 - Income Bracket 4 (more than $190,000)
 
-        $payee->ytdGross = 180020;
+        $payee->ytdGross = 190020;
 
         $payg = PaygTax::new()
             ->setPayer($payer)
@@ -122,17 +123,17 @@ class Nat75331Test extends TestCase
     public function weeklyData(): array
     {
         return [
-            [90, 14, 29, 33, 40, 40, 29],
-            [172, 26, 56, 64, 77, 77, 56],
-            [325, 49, 106, 120, 146, 146, 106],
-            [449, 67, 146, 166, 202, 202, 146],
-            [661, 99, 215, 245, 297, 297, 215],
-            [820, 123, 267, 303, 369, 369, 266],
-            [1024, 154, 333, 379, 460, 460, 333],
-            [1273, 191, 414, 471, 572, 572, 414],
-            [1559, 234, 507, 577, 701, 701, 507],
-            [1888, 283, 614, 699, 849, 849, 614],
-            [2033, 305, 661, 752, 914, 914, 661],
+            [90, 14, 27, 33, 40, 40, 27],
+            [172, 26, 52, 64, 77, 77, 52],
+            [325, 49, 98, 120, 146, 146, 97],
+            [449, 67, 135, 166, 202, 202, 135],
+            [661, 99, 198, 245, 297, 297, 198],
+            [820, 123, 246, 303, 369, 369, 246],
+            [1024, 154, 307, 379, 460, 460, 307],
+            [1273, 191, 382, 471, 572, 572, 382],
+            [1559, 234, 468, 577, 701, 701, 468],
+            [1888, 283, 566, 699, 849, 849, 566],
+            [2033, 305, 610, 752, 914, 914, 610],
         ];
     }
 }

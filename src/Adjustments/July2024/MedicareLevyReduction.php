@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ManageIt\PaygTax\Adjustments\October2020;
+namespace ManageIt\PaygTax\Adjustments\July2024;
 
 use ManageIt\PaygTax\Entities\Payer;
 use ManageIt\PaygTax\Entities\Payee;
@@ -39,21 +39,21 @@ class MedicareLevyReduction
         );
 
         if ($payee->getMedicareLevyExemption() === Payee::MEDICARE_LEVY_EXEMPTION_NONE) {
-            // Weekly gross must be $438 or higher, but less than the shading out point
-            if ($weeklyGross < 438 || $weeklyGross >= $this->getShadingOutPoint()) {
+            // Weekly gross must be $500 or higher, but less than the shading out point
+            if ($weeklyGross < 500 || $weeklyGross >= $this->getShadingOutPoint($payee)) {
                 return 0;
             }
 
-            if ($weeklyGross < 548) {
+            if ($weeklyGross < 625) {
                 // Final value must be negative
                 return $this->convertWeeklyTax(
                     $payee->getPayCycle(),
                     Math::round(
-                        ($weeklyGross - 438.48)
+                        ($weeklyGross - 500)
                         * 0.1
                     )
                 ) * -1;
-            } elseif ($weeklyGross >= 548 && $weeklyGross <= $this->getWeeklyFamilyThreshold()) {
+            } elseif ($weeklyGross >= 625 && $weeklyGross <= $this->getWeeklyFamilyThreshold()) {
                 // Final value must be negative
                 return $this->convertWeeklyTax(
                     $payee->getPayCycle(),
@@ -70,21 +70,21 @@ class MedicareLevyReduction
                 ) * -1;
             }
         } elseif ($payee->getMedicareLevyExemption() === Payee::MEDICARE_LEVY_EXEMPTION_HALF) {
-            // Weekly gross must be $739 or higher, but less than the shading out point
-            if ($weeklyGross < 739 || $weeklyGross >= $this->getShadingOutPoint()) {
+            // Weekly gross must be $843 or higher, but less than the shading out point
+            if ($weeklyGross < 843 || $weeklyGross >= $this->getShadingOutPoint($payee)) {
                 return 0;
             }
 
-            if ($weeklyGross < 924) {
+            if ($weeklyGross < 1053) {
                 // Final value must be negative
                 return $this->convertWeeklyTax(
                     $payee->getPayCycle(),
                     Math::round(
-                        ($weeklyGross - 739.88)
+                        ($weeklyGross - 843.19)
                         * 0.05
                     )
                 ) * -1;
-            } elseif ($weeklyGross >= 924 && $weeklyGross <= $this->getWeeklyFamilyThreshold()) {
+            } elseif ($weeklyGross >= 1053 && $weeklyGross <= $this->getWeeklyFamilyThreshold()) {
                 // Final value must be negative
                 return $this->convertWeeklyTax(
                     $payee->getPayCycle(),
@@ -111,21 +111,25 @@ class MedicareLevyReduction
     protected function getWeeklyFamilyThreshold(): float
     {
         if ($this->spouse === true && $this->children === 0) {
-            // $38,474 / 52 weeks
-            return 739.88;
+            // $43,846 / 52 weeks
+            return 843.192307692;
         }
 
         // Up to a maximum of 10 children can be claimed
         $children = min($this->children, 10);
-        $annualThreshold = 38474 + ($children * 3533);
+        $annualThreshold = 43846 + ($children * 4027);
         return round($annualThreshold / 52, 2);
     }
 
     /**
      * Calculate the shading out point where the reduction is no longer applicable.
      */
-    protected function getShadingOutPoint(): float
+    protected function getShadingOutPoint(Payee $payee): float
     {
-        return floor(($this->getWeeklyFamilyThreshold() * 0.1) / 0.08);
+        if ($payee->getMedicareLevyExemption() === Payee::MEDICARE_LEVY_EXEMPTION_NONE) {
+            return floor(($this->getWeeklyFamilyThreshold() * 0.1) / 0.08);
+        }
+
+        return floor(($this->getWeeklyFamilyThreshold() * 0.05) / 0.04);
     }
 }

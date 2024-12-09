@@ -3,11 +3,6 @@
 namespace ManageIt\PaygTax\Tests\TaxScales\July2023;
 
 use ManageIt\PaygTax\PaygTax;
-use ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale1;
-use ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale2;
-use ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale3;
-use ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale5;
-use ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale6;
 use ManageIt\PaygTax\Tests\Fixtures\Earning;
 use ManageIt\PaygTax\Tests\Fixtures\Payee;
 use ManageIt\PaygTax\Tests\Fixtures\Payer;
@@ -15,108 +10,10 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
 
 /**
- * @covers \ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale1
- * @covers \ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale2
- * @covers \ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale3
- * @covers \ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale5
- * @covers \ManageIt\PaygTax\TaxScales\July2023\Nat3539Scale6
+ * @covers \ManageIt\PaygTax\TaxScales\Nat3539
  */
 class Nat3539Test extends TestCase
 {
-    protected Nat3539Scale1 $scale1;
-    protected Nat3539Scale2 $scale2;
-    protected Nat3539Scale3 $scale3;
-    protected Nat3539Scale5 $scale5;
-    protected Nat3539Scale6 $scale6;
-
-    public function setUp(): void
-    {
-        $this->scale1 = new Nat3539Scale1();
-        $this->scale2 = new Nat3539Scale2();
-        $this->scale3 = new Nat3539Scale3();
-        $this->scale5 = new Nat3539Scale5();
-        $this->scale6 = new Nat3539Scale6();
-    }
-
-    public function testEligibility(): void
-    {
-        $payer = new Payer();
-
-        $payee = new Payee();
-        $payee->residencyStatus = Payee::RESIDENT;
-        $payee->tfn = true;
-        $payee->claimsTaxFreeThreshold = false;
-        $payee->stsl = true;
-
-        $earning = new Earning();
-        $earning->date = new \DateTime('2023-07-15');
-
-        Assert::assertTrue($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale5->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale6->isEligible($payer, $payee, $earning));
-
-        $payee->residencyStatus = Payee::FOREIGN_RESIDENT;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertTrue($this->scale3->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale5->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale6->isEligible($payer, $payee, $earning));
-
-        $payee->residencyStatus = Payee::WORKING_HOLIDAY_MAKER;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale5->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale6->isEligible($payer, $payee, $earning));
-
-        $payee->residencyStatus = Payee::RESIDENT;
-        $payee->tfn = false;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale5->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale6->isEligible($payer, $payee, $earning));
-
-        $payee->tfn = true;
-        $payee->claimsTaxFreeThreshold = true;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertTrue($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale5->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale6->isEligible($payer, $payee, $earning));
-
-        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_FULL;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-        Assert::assertTrue($this->scale5->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale6->isEligible($payer, $payee, $earning));
-
-        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_HALF;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale5->isEligible($payer, $payee, $earning));
-        Assert::assertTrue($this->scale6->isEligible($payer, $payee, $earning));
-
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_COUPLE;
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale5->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale6->isEligible($payer, $payee, $earning));
-
-        $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
-        $earning->date = new \DateTime('2019-08-01');
-        Assert::assertFalse($this->scale1->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale2->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale3->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale5->isEligible($payer, $payee, $earning));
-        Assert::assertFalse($this->scale6->isEligible($payer, $payee, $earning));
-    }
-
     /**
      * @dataProvider weeklyData
      */
