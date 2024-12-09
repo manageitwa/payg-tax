@@ -26,7 +26,7 @@ class PaygTax
 
     protected Earning $earning;
 
-    final public function __construct(Classifier $classifier = null)
+    final public function __construct(?Classifier $classifier = null)
     {
         $this->classifier = $classifier ?? new BaseClassifier();
     }
@@ -36,7 +36,7 @@ class PaygTax
      *
      * @return static
      */
-    public static function new(Classifier $classifier = null)
+    public static function new(?Classifier $classifier = null)
     {
         return new static($classifier);
     }
