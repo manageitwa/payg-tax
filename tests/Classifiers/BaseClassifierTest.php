@@ -85,12 +85,13 @@ class BaseClassifierTest extends TestCase
     public function testNat75331(): void
     {
         $payer = new Payer();
+        $payer->whmEmployer = true;
 
         $payee = new Payee();
         $payee->residencyStatus = Payee::WORKING_HOLIDAY_MAKER;
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = true;
-        $payee->stsl = true;
+        $payee->stsl = false;
         $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_NONE;
         $payee->seniorsOffset = Payee::SENIORS_OFFSET_NONE;
 
@@ -99,5 +100,8 @@ class BaseClassifierTest extends TestCase
         $earning->gross = 1000;
 
         Assert::assertInstanceOf(Nat75331::class, $this->classifier->getTaxScale($payer, $payee, $earning));
+
+        $payer->whmEmployer = false;
+        Assert::assertInstanceOf(Nat1004::class, $this->classifier->getTaxScale($payer, $payee, $earning));
     }
 }

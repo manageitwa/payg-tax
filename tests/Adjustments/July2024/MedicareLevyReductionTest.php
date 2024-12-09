@@ -189,6 +189,7 @@ class MedicareLevyReductionTest extends TestCase
         $payee->residencyStatus = Payee::RESIDENT;
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = false;
+        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_HALF;
 
         $earning = new Earning();
         $earning->date = new \DateTime('2024-10-10');
@@ -392,6 +393,7 @@ class MedicareLevyReductionTest extends TestCase
         $payee->residencyStatus = Payee::RESIDENT;
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = false;
+        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_HALF;
 
         $earning = new Earning();
         $earning->date = new \DateTime('2024-10-10');
@@ -595,6 +597,7 @@ class MedicareLevyReductionTest extends TestCase
         $payee->residencyStatus = Payee::RESIDENT;
         $payee->tfn = true;
         $payee->claimsTaxFreeThreshold = false;
+        $payee->medicareLevyExemption = Payee::MEDICARE_LEVY_EXEMPTION_HALF;
 
         $earning = new Earning();
         $earning->date = new \DateTime('2024-10-10');

@@ -142,8 +142,15 @@ class Nat1004 extends BaseCoefficientScale
             return [];
         }
 
-        // Foreign residents always use scale 3
-        if ($payee->getResidencyStatus() === \ManageIt\PaygTax\Entities\Payee::FOREIGN_RESIDENT) {
+        // Foreign residents always use scale 3. If the payee is a Working Holiday Maker but the payer is not yet
+        // registered as a WHM employer, they also use scale 3.
+        if (
+            $payee->getResidencyStatus() === \ManageIt\PaygTax\Entities\Payee::FOREIGN_RESIDENT
+            || (
+                $payee->getResidencyStatus() === \ManageIt\PaygTax\Entities\Payee::WORKING_HOLIDAY_MAKER
+                && !$payer->isRegisteredWhmEmployer()
+            )
+        ) {
             return $this->scaledCoefficients[$coefficientDate]['scale3'];
         }
 

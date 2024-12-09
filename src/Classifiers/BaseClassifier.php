@@ -9,7 +9,6 @@ use ManageIt\PaygTax\Entities\Payer;
 use ManageIt\PaygTax\Entities\Payee;
 use ManageIt\PaygTax\Entities\Earning;
 use ManageIt\PaygTax\Entities\TaxScale;
-use ManageIt\PaygTax\Exceptions\NoTaxScalesException;
 use ManageIt\PaygTax\TaxScales\Nat1004;
 use ManageIt\PaygTax\TaxScales\Nat3539;
 use ManageIt\PaygTax\TaxScales\Nat4466;
@@ -31,7 +30,7 @@ class BaseClassifier implements Classifier
         }
 
         // Working Holiday Makers.
-        if ($payee->getResidencyStatus() === Payee::WORKING_HOLIDAY_MAKER) {
+        if ($payee->getResidencyStatus() === Payee::WORKING_HOLIDAY_MAKER && $payer->isRegisteredWhmEmployer() === true) {
             return new Nat75331();
         }
 
