@@ -54,7 +54,7 @@ class MedicareLevyReduction
                     Math::round(
                         $this->getWeeklyFamilyThreshold() * 0.02 -
                             ($weeklyGross - $this->getWeeklyFamilyThreshold()) * 0.08,
-                    ),
+                    )
                 ) * -1;
             }
         } elseif ($payee->getMedicareLevyExemption() === Payee::MEDICARE_LEVY_EXEMPTION_HALF) {
@@ -76,7 +76,7 @@ class MedicareLevyReduction
                     Math::round(
                         $this->getWeeklyFamilyThreshold() * 0.01 -
                             ($weeklyGross - $this->getWeeklyFamilyThreshold()) * 0.04,
-                    ),
+                    )
                 ) * -1;
             }
         }
