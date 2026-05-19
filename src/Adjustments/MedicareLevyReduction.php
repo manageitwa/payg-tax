@@ -72,6 +72,11 @@ class MedicareLevyReduction implements TaxAdjustment
 
     public function getAdjustmentAmount(Payer $payer, Payee $payee, TaxScale $taxScale, Earning $earning): float
     {
+        if (Date::from($earning->getPayDate(), '2026-07-01')) {
+            $adjustment = new Adjustments\July2026\MedicareLevyReduction($this->spouse, $this->children);
+            return $adjustment->getAdjustmentAmount($payer, $payee, $taxScale, $earning);
+        }
+
         if (Date::from($earning->getPayDate(), '2024-07-01')) {
             $adjustment = new Adjustments\July2024\MedicareLevyReduction($this->spouse, $this->children);
             return $adjustment->getAdjustmentAmount($payer, $payee, $taxScale, $earning);
