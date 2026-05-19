@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ManageIt\PaygTax\Tests\TaxScales\October2020;
 
 use ManageIt\PaygTax\PaygTax;
@@ -9,14 +11,10 @@ use ManageIt\PaygTax\Tests\Fixtures\Payer;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
 
-/**
- * @covers \ManageIt\PaygTax\TaxScales\Nat1004
- */
-class Nat1004Scale3Test extends TestCase
+#[\PHPUnit\Framework\Attributes\CoversClass(\ManageIt\PaygTax\TaxScales\Nat1004::class)]
+final class Nat1004Scale3Test extends TestCase
 {
-    /**
-     * @dataProvider weeklyData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('weeklyData')]
     public function testWeeklyWithholding(int $gross, int $withheld): void
     {
         $payer = new Payer();
@@ -38,65 +36,61 @@ class Nat1004Scale3Test extends TestCase
     }
 
     /**
-     * @return array<int, array<int|float, int|float>>
+     * @return \Iterator<int, array<int, (float | int)>>
      */
-    public static function weeklyData(): array
+    public static function weeklyData(): \Iterator
     {
-        return [
-            [87, 28],
-            [88, 29],
-            [116, 38],
-            [117, 38],
-            [249, 81],
-            [250, 81],
-            [358, 116],
-            [359, 117],
-            [370, 120],
-            [371, 121],
-            [437, 142],
-            [438, 142],
-            [514, 167],
-            [515, 167],
-            [547, 178],
-            [548, 178],
-            [720, 234],
-            [721, 234],
-            [738, 240],
-            [739, 240],
-            [864, 281],
-            [865, 281],
-            [923, 300],
-            [924, 300],
-            [931, 303],
-            [932, 303],
-            [1281, 416],
-            [1282, 417],
-            [1844, 599],
-            [1845, 600],
-            [1956, 636],
-            [1957, 636],
-            [2119, 689],
-            [2120, 689],
-            [2306, 749],
-            [2307, 750],
-            [2490, 818],
-            [2491, 818],
-            [2652, 878],
-            [2653, 878],
-            [2736, 909],
-            [2737, 909],
-            [2898, 969],
-            [2899, 969],
-            [2913, 974],
-            [2914, 975],
-            [3111, 1048],
-            [3461, 1177],
-        ];
+        yield [87, 28];
+        yield [88, 29];
+        yield [116, 38];
+        yield [117, 38];
+        yield [249, 81];
+        yield [250, 81];
+        yield [358, 116];
+        yield [359, 117];
+        yield [370, 120];
+        yield [371, 121];
+        yield [437, 142];
+        yield [438, 142];
+        yield [514, 167];
+        yield [515, 167];
+        yield [547, 178];
+        yield [548, 178];
+        yield [720, 234];
+        yield [721, 234];
+        yield [738, 240];
+        yield [739, 240];
+        yield [864, 281];
+        yield [865, 281];
+        yield [923, 300];
+        yield [924, 300];
+        yield [931, 303];
+        yield [932, 303];
+        yield [1281, 416];
+        yield [1282, 417];
+        yield [1844, 599];
+        yield [1845, 600];
+        yield [1956, 636];
+        yield [1957, 636];
+        yield [2119, 689];
+        yield [2120, 689];
+        yield [2306, 749];
+        yield [2307, 750];
+        yield [2490, 818];
+        yield [2491, 818];
+        yield [2652, 878];
+        yield [2653, 878];
+        yield [2736, 909];
+        yield [2737, 909];
+        yield [2898, 969];
+        yield [2899, 969];
+        yield [2913, 974];
+        yield [2914, 975];
+        yield [3111, 1048];
+        yield [3461, 1177];
     }
 
-    /**
-     * @dataProvider fortnightlyData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('fortnightlyData')]
     public function testFortnightlyWithholding(int $gross, int $withheld): void
     {
         $payer = new Payer();
@@ -118,65 +112,61 @@ class Nat1004Scale3Test extends TestCase
     }
 
     /**
-     * @return array<int, array<int|float, int|float>>
+     * @return \Iterator<int, array<int, (float | int)>>
      */
-    public static function fortnightlyData(): array
+    public static function fortnightlyData(): \Iterator
     {
-        return [
-            [174, 56],
-            [176, 58],
-            [232, 76],
-            [234, 76],
-            [498, 162],
-            [500, 162],
-            [716, 232],
-            [718, 234],
-            [740, 240],
-            [742, 242],
-            [874, 284],
-            [876, 284],
-            [1028, 334],
-            [1030, 334],
-            [1094, 356],
-            [1096, 356],
-            [1440, 468],
-            [1442, 468],
-            [1476, 480],
-            [1478, 480],
-            [1728, 562],
-            [1730, 562],
-            [1846, 600],
-            [1848, 600],
-            [1862, 606],
-            [1864, 606],
-            [2562, 832],
-            [2564, 834],
-            [3688, 1198],
-            [3690, 1200],
-            [3912, 1272],
-            [3914, 1272],
-            [4238, 1378],
-            [4240, 1378],
-            [4612, 1498],
-            [4614, 1500],
-            [4980, 1636],
-            [4982, 1636],
-            [5304, 1756],
-            [5306, 1756],
-            [5472, 1818],
-            [5474, 1818],
-            [5796, 1938],
-            [5798, 1938],
-            [5826, 1948],
-            [5828, 1950],
-            [6222, 2096],
-            [6922, 2354],
-        ];
+        yield [174, 56];
+        yield [176, 58];
+        yield [232, 76];
+        yield [234, 76];
+        yield [498, 162];
+        yield [500, 162];
+        yield [716, 232];
+        yield [718, 234];
+        yield [740, 240];
+        yield [742, 242];
+        yield [874, 284];
+        yield [876, 284];
+        yield [1028, 334];
+        yield [1030, 334];
+        yield [1094, 356];
+        yield [1096, 356];
+        yield [1440, 468];
+        yield [1442, 468];
+        yield [1476, 480];
+        yield [1478, 480];
+        yield [1728, 562];
+        yield [1730, 562];
+        yield [1846, 600];
+        yield [1848, 600];
+        yield [1862, 606];
+        yield [1864, 606];
+        yield [2562, 832];
+        yield [2564, 834];
+        yield [3688, 1198];
+        yield [3690, 1200];
+        yield [3912, 1272];
+        yield [3914, 1272];
+        yield [4238, 1378];
+        yield [4240, 1378];
+        yield [4612, 1498];
+        yield [4614, 1500];
+        yield [4980, 1636];
+        yield [4982, 1636];
+        yield [5304, 1756];
+        yield [5306, 1756];
+        yield [5472, 1818];
+        yield [5474, 1818];
+        yield [5796, 1938];
+        yield [5798, 1938];
+        yield [5826, 1948];
+        yield [5828, 1950];
+        yield [6222, 2096];
+        yield [6922, 2354];
     }
 
-    /**
-     * @dataProvider monthlyData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('monthlyData')]
     public function testMonthlyWithholding(float $gross, int $withheld): void
     {
         $payer = new Payer();
@@ -198,59 +188,57 @@ class Nat1004Scale3Test extends TestCase
     }
 
     /**
-     * @return array<int, array<int|float, int|float>>
+     * @return \Iterator<int, array<int, (float | int)>>
      */
-    public static function monthlyData(): array
+    public static function monthlyData(): \Iterator
     {
-        return [
-            [377.0, 121],
-            [381.33, 126],
-            [502.67, 165],
-            [507.0, 165],
-            [1079.0, 351],
-            [1083.33, 351],
-            [1551.33, 503],
-            [1555.67, 507],
-            [1603.33, 520],
-            [1607.67, 524],
-            [1893.67, 615],
-            [1898.0, 615],
-            [2227.33, 724],
-            [2231.67, 724],
-            [2370.33, 771],
-            [2374.67, 771],
-            [3120.0, 1014],
-            [3124.33, 1014],
-            [3198.0, 1040],
-            [3202.33, 1040],
-            [3744.0, 1218],
-            [3748.33, 1218],
-            [3999.67, 1300],
-            [4004.0, 1300],
-            [4034.33, 1313],
-            [4038.67, 1313],
-            [5551.0, 1803],
-            [5555.33, 1807],
-            [7990.67, 2596],
-            [7995.0, 2600],
-            [8476.0, 2756],
-            [8480.33, 2756],
-            [9182.33, 2986],
-            [9186.67, 2986],
-            [9992.67, 3246],
-            [9997.0, 3250],
-            [10790.0, 3545],
-            [10794.33, 3545],
-            [11492.0, 3805],
-            [11496.33, 3805],
-            [11856.0, 3939],
-            [11860.33, 3939],
-            [12558.0, 4199],
-            [12562.33, 4199],
-            [12623.0, 4221],
-            [12627.33, 4225],
-            [13481.0, 4541],
-            [14997.67, 5100],
-        ];
+        yield [377.0, 121];
+        yield [381.33, 126];
+        yield [502.67, 165];
+        yield [507.0, 165];
+        yield [1079.0, 351];
+        yield [1083.33, 351];
+        yield [1551.33, 503];
+        yield [1555.67, 507];
+        yield [1603.33, 520];
+        yield [1607.67, 524];
+        yield [1893.67, 615];
+        yield [1898.0, 615];
+        yield [2227.33, 724];
+        yield [2231.67, 724];
+        yield [2370.33, 771];
+        yield [2374.67, 771];
+        yield [3120.0, 1014];
+        yield [3124.33, 1014];
+        yield [3198.0, 1040];
+        yield [3202.33, 1040];
+        yield [3744.0, 1218];
+        yield [3748.33, 1218];
+        yield [3999.67, 1300];
+        yield [4004.0, 1300];
+        yield [4034.33, 1313];
+        yield [4038.67, 1313];
+        yield [5551.0, 1803];
+        yield [5555.33, 1807];
+        yield [7990.67, 2596];
+        yield [7995.0, 2600];
+        yield [8476.0, 2756];
+        yield [8480.33, 2756];
+        yield [9182.33, 2986];
+        yield [9186.67, 2986];
+        yield [9992.67, 3246];
+        yield [9997.0, 3250];
+        yield [10790.0, 3545];
+        yield [10794.33, 3545];
+        yield [11492.0, 3805];
+        yield [11496.33, 3805];
+        yield [11856.0, 3939];
+        yield [11860.33, 3939];
+        yield [12558.0, 4199];
+        yield [12562.33, 4199];
+        yield [12623.0, 4221];
+        yield [12627.33, 4225];
+        yield [13481.0, 4541];
+        yield [14997.67, 5100];
     }
 }

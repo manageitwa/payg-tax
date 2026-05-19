@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ManageIt\PaygTax\Tests\TaxScales\October2020;
 
 use ManageIt\PaygTax\PaygTax;
@@ -9,14 +11,10 @@ use ManageIt\PaygTax\Tests\Fixtures\Payer;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
 
-/**
- * @covers \ManageIt\PaygTax\TaxScales\Nat1004
- */
-class Nat1004Scale4Test extends TestCase
+#[\PHPUnit\Framework\Attributes\CoversClass(\ManageIt\PaygTax\TaxScales\Nat1004::class)]
+final class Nat1004Scale4Test extends TestCase
 {
-    /**
-     * @dataProvider weeklyData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('weeklyData')]
     public function testWeeklyWithholding(int $gross, int $withheld, bool $resident): void
     {
         $payer = new Payer();
@@ -38,35 +36,33 @@ class Nat1004Scale4Test extends TestCase
     }
 
     /**
-     * @return array<int, array<int|float, int|float|bool>>
+     * @return \Iterator<int, array<int, (bool | float | int)>>
      */
-    public static function weeklyData(): array
+    public static function weeklyData(): \Iterator
     {
-        return [
-            // Australian Residents
-            [87, 40, true],
-            [88, 41, true],
-            [116, 54, true],
-            [370, 173, true],
-            [547, 257, true],
-            [739, 347, true],
-            [931, 437, true],
-            [1845, 867, true],
-            [2307, 1084, true],
-            [2737, 1286, true],
-            [3461, 1626, true],
-            // Foreign residents
-            [87, 39, false],
-            [88, 39, false],
-            [116, 52, false],
-            [370, 166, false],
-            [547, 246, false],
-            [739, 332, false],
-            [931, 418, false],
-            [1845, 830, false],
-            [2307, 1038, false],
-            [2737, 1231, false],
-            [3461, 1557, false],
-        ];
+        // Australian Residents
+        yield [87, 40, true];
+        yield [88, 41, true];
+        yield [116, 54, true];
+        yield [370, 173, true];
+        yield [547, 257, true];
+        yield [739, 347, true];
+        yield [931, 437, true];
+        yield [1845, 867, true];
+        yield [2307, 1084, true];
+        yield [2737, 1286, true];
+        yield [3461, 1626, true];
+        // Foreign residents
+        yield [87, 39, false];
+        yield [88, 39, false];
+        yield [116, 52, false];
+        yield [370, 166, false];
+        yield [547, 246, false];
+        yield [739, 332, false];
+        yield [931, 418, false];
+        yield [1845, 830, false];
+        yield [2307, 1038, false];
+        yield [2737, 1231, false];
+        yield [3461, 1557, false];
     }
 }

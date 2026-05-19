@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ManageIt\PaygTax\Tests\Classifiers;
 
 use ManageIt\PaygTax\Classifiers\BaseClassifier;
@@ -13,10 +15,8 @@ use ManageIt\PaygTax\Tests\Fixtures\Payer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \ManageIt\PaygTax\Classifiers\BaseClassifier
- */
-class BaseClassifierTest extends TestCase
+#[\PHPUnit\Framework\Attributes\CoversClass(\ManageIt\PaygTax\Classifiers\BaseClassifier::class)]
+final class BaseClassifierTest extends TestCase
 {
     protected BaseClassifier $classifier;
 

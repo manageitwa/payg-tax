@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ManageIt\PaygTax\Tests\TaxScales\July2024;
 
 use ManageIt\PaygTax\PaygTax;
@@ -10,21 +12,15 @@ use ManageIt\PaygTax\Tests\Fixtures\Payer;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
 
-/**
- * @covers \ManageIt\PaygTax\TaxScales\Nat75331
- */
-class Nat75331Test extends TestCase
+#[\PHPUnit\Framework\Attributes\CoversClass(\ManageIt\PaygTax\TaxScales\Nat75331::class)]
+final class Nat75331Test extends TestCase
 {
-    protected Nat75331 $scale;
-
     public function setUp(): void
     {
-        $this->scale = new Nat75331();
+        $scale = new Nat75331();
     }
 
-    /**
-     * @dataProvider weeklyData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('weeklyData')]
     public function testWeeklyWithholding(
         int $gross,
         float $incomeBracket1, // <= 45000
@@ -100,22 +96,20 @@ class Nat75331Test extends TestCase
     }
 
     /**
-     * @return array<int, array<int|float, int|float>>
+     * @return \Iterator<int, array<int, (float | int)>>
      */
-    public static function weeklyData(): array
+    public static function weeklyData(): \Iterator
     {
-        return [
-            [90, 14, 27, 33, 40, 40, 27],
-            [172, 26, 52, 64, 77, 77, 52],
-            [325, 49, 98, 120, 146, 146, 97],
-            [449, 67, 135, 166, 202, 202, 135],
-            [661, 99, 198, 245, 297, 297, 198],
-            [820, 123, 246, 303, 369, 369, 246],
-            [1024, 154, 307, 379, 460, 460, 307],
-            [1273, 191, 382, 471, 572, 572, 382],
-            [1559, 234, 468, 577, 701, 701, 468],
-            [1888, 283, 566, 699, 849, 849, 566],
-            [2033, 305, 610, 752, 914, 914, 610],
-        ];
+        yield [90, 14, 27, 33, 40, 40, 27];
+        yield [172, 26, 52, 64, 77, 77, 52];
+        yield [325, 49, 98, 120, 146, 146, 97];
+        yield [449, 67, 135, 166, 202, 202, 135];
+        yield [661, 99, 198, 245, 297, 297, 198];
+        yield [820, 123, 246, 303, 369, 369, 246];
+        yield [1024, 154, 307, 379, 460, 460, 307];
+        yield [1273, 191, 382, 471, 572, 572, 382];
+        yield [1559, 234, 468, 577, 701, 701, 468];
+        yield [1888, 283, 566, 699, 849, 849, 566];
+        yield [2033, 305, 610, 752, 914, 914, 610];
     }
 }
