@@ -74,7 +74,7 @@ class ExtraPayPeriodTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [87, 0],
@@ -153,7 +153,7 @@ class ExtraPayPeriodTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyData(): array
+    public static function fortnightlyData(): array
     {
         return [
             [174, 0],

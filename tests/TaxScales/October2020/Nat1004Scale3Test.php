@@ -32,10 +32,7 @@ class Nat1004Scale3Test extends TestCase
         $earning->date = new \DateTime('2022-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -43,7 +40,7 @@ class Nat1004Scale3Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [87, 28],
@@ -115,10 +112,7 @@ class Nat1004Scale3Test extends TestCase
         $earning->date = new \DateTime('2022-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -126,7 +120,7 @@ class Nat1004Scale3Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyData(): array
+    public static function fortnightlyData(): array
     {
         return [
             [174, 56],
@@ -198,10 +192,7 @@ class Nat1004Scale3Test extends TestCase
         $earning->date = new \DateTime('2022-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -209,56 +200,56 @@ class Nat1004Scale3Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function monthlyData(): array
+    public static function monthlyData(): array
     {
         return [
-            [377.00, 121],
+            [377.0, 121],
             [381.33, 126],
             [502.67, 165],
-            [507.00, 165],
-            [1079.00, 351],
+            [507.0, 165],
+            [1079.0, 351],
             [1083.33, 351],
             [1551.33, 503],
             [1555.67, 507],
             [1603.33, 520],
             [1607.67, 524],
             [1893.67, 615],
-            [1898.00, 615],
+            [1898.0, 615],
             [2227.33, 724],
             [2231.67, 724],
             [2370.33, 771],
             [2374.67, 771],
-            [3120.00, 1014],
+            [3120.0, 1014],
             [3124.33, 1014],
-            [3198.00, 1040],
+            [3198.0, 1040],
             [3202.33, 1040],
-            [3744.00, 1218],
+            [3744.0, 1218],
             [3748.33, 1218],
             [3999.67, 1300],
-            [4004.00, 1300],
+            [4004.0, 1300],
             [4034.33, 1313],
             [4038.67, 1313],
-            [5551.00, 1803],
+            [5551.0, 1803],
             [5555.33, 1807],
             [7990.67, 2596],
-            [7995.00, 2600],
-            [8476.00, 2756],
+            [7995.0, 2600],
+            [8476.0, 2756],
             [8480.33, 2756],
             [9182.33, 2986],
             [9186.67, 2986],
             [9992.67, 3246],
-            [9997.00, 3250],
-            [10790.00, 3545],
+            [9997.0, 3250],
+            [10790.0, 3545],
             [10794.33, 3545],
-            [11492.00, 3805],
+            [11492.0, 3805],
             [11496.33, 3805],
-            [11856.00, 3939],
+            [11856.0, 3939],
             [11860.33, 3939],
-            [12558.00, 4199],
+            [12558.0, 4199],
             [12562.33, 4199],
-            [12623.00, 4221],
+            [12623.0, 4221],
             [12627.33, 4225],
-            [13481.00, 4541],
+            [13481.0, 4541],
             [14997.67, 5100],
         ];
     }

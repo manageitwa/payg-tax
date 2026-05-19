@@ -32,7 +32,7 @@ class Nat75331Test extends TestCase
         float $incomeBracket3, // <= 190000
         float $incomeBracket4, // > 190000
         float $noTfn, // No TFN
-        float $payerNotRegistered // Payer not registered as WHM employer
+        float $payerNotRegistered, // Payer not registered as WHM employer
     ): void {
         $payer = new Payer();
         $payer->whmEmployer = true;
@@ -51,10 +51,7 @@ class Nat75331Test extends TestCase
 
         // Scale 1 - Income Bracket 1 (less than or equal to $45,000)
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($incomeBracket1, $payg->getTaxWithheldAmount());
 
@@ -62,10 +59,7 @@ class Nat75331Test extends TestCase
 
         $payee->ytdGross = 45020;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($incomeBracket2, $payg->getTaxWithheldAmount());
 
@@ -73,10 +67,7 @@ class Nat75331Test extends TestCase
 
         $payee->ytdGross = 135020;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($incomeBracket3, $payg->getTaxWithheldAmount());
 
@@ -84,10 +75,7 @@ class Nat75331Test extends TestCase
 
         $payee->ytdGross = 190020;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($incomeBracket4, $payg->getTaxWithheldAmount());
 
@@ -96,10 +84,7 @@ class Nat75331Test extends TestCase
         $payee->ytdGross = 450;
         $payee->tfn = false;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($noTfn, $payg->getTaxWithheldAmount());
 
@@ -109,10 +94,7 @@ class Nat75331Test extends TestCase
         $payee->ytdGross = 450;
         $payee->tfn = true;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($payerNotRegistered, $payg->getTaxWithheldAmount());
     }
@@ -120,7 +102,7 @@ class Nat75331Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [90, 14, 27, 33, 40, 40, 27],

@@ -120,7 +120,7 @@ class Nat4466Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [566, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],

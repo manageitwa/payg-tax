@@ -41,7 +41,7 @@ class Nat1004Scale5Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [116, 0.0],
@@ -122,7 +122,7 @@ class Nat1004Scale5Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyData(): array
+    public static function fortnightlyData(): array
     {
         return [
             [232, 0.0],
@@ -203,7 +203,7 @@ class Nat1004Scale5Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function monthlyData(): array
+    public static function monthlyData(): array
     {
         return [
             [502.67, 0.0],

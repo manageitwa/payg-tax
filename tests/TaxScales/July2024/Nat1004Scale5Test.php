@@ -33,10 +33,7 @@ class Nat1004Scale5Test extends TestCase
         $earning->date = new \DateTime('2024-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -44,7 +41,7 @@ class Nat1004Scale5Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [116, 0],
@@ -117,10 +114,7 @@ class Nat1004Scale5Test extends TestCase
         $earning->date = new \DateTime('2024-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -128,7 +122,7 @@ class Nat1004Scale5Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyData(): array
+    public static function fortnightlyData(): array
     {
         return [
             [232, 0],
@@ -201,10 +195,7 @@ class Nat1004Scale5Test extends TestCase
         $earning->date = new \DateTime('2024-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -212,16 +203,16 @@ class Nat1004Scale5Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function monthlyData(): array
+    public static function monthlyData(): array
     {
         return [
             [502.67, 0],
-            [507.00, 0],
+            [507.0, 0],
             [645.67, 0],
-            [650.00, 0],
-            [1079.00, 0],
+            [650.0, 0],
+            [1079.0, 0],
             [1083.33, 0],
-            [1560.00, 0],
+            [1560.0, 0],
             [1564.33, 0],
             [1603.33, 9],
             [1607.67, 9],
@@ -229,38 +220,38 @@ class Nat1004Scale5Test extends TestCase
             [2166.67, 95],
             [2227.33, 108],
             [2231.67, 108],
-            [2704.00, 182],
+            [2704.0, 182],
             [2708.33, 182],
-            [3120.00, 251],
+            [3120.0, 251],
             [3124.33, 251],
             [3648.67, 338],
-            [3653.00, 338],
-            [3744.00, 355],
+            [3653.0, 338],
+            [3744.0, 355],
             [3748.33, 355],
             [4034.33, 442],
             [4038.67, 442],
             [4558.67, 602],
-            [4563.00, 602],
-            [5551.00, 901],
+            [4563.0, 602],
+            [5551.0, 901],
             [5555.33, 901],
             [7990.67, 1634],
-            [7995.00, 1634],
+            [7995.0, 1634],
             [9182.33, 1989],
             [9186.67, 1993],
             [9728.33, 2154],
             [9732.67, 2158],
-            [10790.00, 2474],
+            [10790.0, 2474],
             [10794.33, 2474],
-            [11245.00, 2609],
+            [11245.0, 2609],
             [11249.33, 2613],
-            [11492.00, 2700],
+            [11492.0, 2700],
             [11496.33, 2704],
-            [11856.00, 2834],
+            [11856.0, 2834],
             [11860.33, 2838],
-            [12558.00, 3094],
+            [12558.0, 3094],
             [12562.33, 3098],
             [14308.67, 3744],
-            [14313.00, 3744],
+            [14313.0, 3744],
             [15825.33, 4303],
             [15829.67, 4307],
         ];

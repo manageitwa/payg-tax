@@ -120,7 +120,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [537, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -220,7 +220,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyDataScale6(): array
+    public static function weeklyDataScale6(): array
     {
         return [
             [907, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -327,7 +327,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyData(): array
+    public static function fortnightlyData(): array
     {
         return [
             [1074, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -427,7 +427,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyDataScale6(): array
+    public static function fortnightlyDataScale6(): array
     {
         return [
             [1814, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -534,7 +534,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function monthlyData(): array
+    public static function monthlyData(): array
     {
         return [
             [2327.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -634,7 +634,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function monthlyDataScale6(): array
+    public static function monthlyDataScale6(): array
     {
         return [
             [3930.33, 0.0, 0.0, 0.0, 0.0, 0.0],

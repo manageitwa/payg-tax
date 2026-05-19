@@ -32,10 +32,7 @@ class Nat1004Scale2Test extends TestCase
         $earning->date = new \DateTime('2022-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -43,7 +40,7 @@ class Nat1004Scale2Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [87, 0],
@@ -115,10 +112,7 @@ class Nat1004Scale2Test extends TestCase
         $earning->date = new \DateTime('2022-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -126,7 +120,7 @@ class Nat1004Scale2Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyData(): array
+    public static function fortnightlyData(): array
     {
         return [
             [174, 0],
@@ -198,10 +192,7 @@ class Nat1004Scale2Test extends TestCase
         $earning->date = new \DateTime('2022-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -209,56 +200,56 @@ class Nat1004Scale2Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function monthlyData(): array
+    public static function monthlyData(): array
     {
         return [
-            [377.00, 0],
+            [377.0, 0],
             [381.33, 0],
             [502.67, 0],
-            [507.00, 0],
-            [1079.00, 0],
+            [507.0, 0],
+            [1079.0, 0],
             [1083.33, 0],
             [1551.33, 0],
             [1555.67, 0],
             [1603.33, 9],
             [1607.67, 9],
             [1893.67, 65],
-            [1898.00, 65],
+            [1898.0, 65],
             [2227.33, 160],
             [2231.67, 160],
             [2370.33, 204],
             [2374.67, 204],
-            [3120.00, 360],
+            [3120.0, 360],
             [3124.33, 360],
-            [3198.00, 377],
+            [3198.0, 377],
             [3202.33, 377],
-            [3744.00, 498],
+            [3744.0, 498],
             [3748.33, 498],
             [3999.67, 585],
-            [4004.00, 585],
+            [4004.0, 585],
             [4034.33, 598],
             [4038.67, 598],
-            [5551.00, 1127],
+            [5551.0, 1127],
             [5555.33, 1127],
             [7990.67, 1967],
-            [7995.00, 1967],
-            [8476.00, 2132],
+            [7995.0, 1967],
+            [8476.0, 2132],
             [8480.33, 2136],
             [9182.33, 2379],
             [9186.67, 2379],
             [9992.67, 2656],
-            [9997.00, 2661],
-            [10790.00, 2968],
+            [9997.0, 2661],
+            [10790.0, 2968],
             [10794.33, 2968],
-            [11492.00, 3241],
+            [11492.0, 3241],
             [11496.33, 3241],
-            [11856.00, 3384],
+            [11856.0, 3384],
             [11860.33, 3384],
-            [12558.00, 3657],
+            [12558.0, 3657],
             [12562.33, 3657],
-            [12623.00, 3683],
+            [12623.0, 3683],
             [12627.33, 3683],
-            [13481.00, 4017],
+            [13481.0, 4017],
             [14997.67, 4611],
         ];
     }

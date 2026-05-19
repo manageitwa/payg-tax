@@ -32,10 +32,7 @@ class Nat1004Scale1Test extends TestCase
         $earning->date = new \DateTime('2024-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -43,7 +40,7 @@ class Nat1004Scale1Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [116, 19],
@@ -115,10 +112,7 @@ class Nat1004Scale1Test extends TestCase
         $earning->date = new \DateTime('2024-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -126,7 +120,7 @@ class Nat1004Scale1Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyData(): array
+    public static function fortnightlyData(): array
     {
         return [
             [232, 38],
@@ -198,10 +192,7 @@ class Nat1004Scale1Test extends TestCase
         $earning->date = new \DateTime('2024-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -209,16 +200,16 @@ class Nat1004Scale1Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function monthlyData(): array
+    public static function monthlyData(): array
     {
         return [
             [502.67, 82],
-            [507.00, 82],
+            [507.0, 82],
             [645.67, 104],
-            [650.00, 104],
-            [1079.00, 195],
+            [650.0, 104],
+            [1079.0, 195],
             [1083.33, 195],
-            [1560.00, 299],
+            [1560.0, 299],
             [1564.33, 299],
             [1603.33, 308],
             [1607.67, 308],
@@ -226,38 +217,38 @@ class Nat1004Scale1Test extends TestCase
             [2166.67, 412],
             [2227.33, 425],
             [2231.67, 425],
-            [2704.00, 576],
+            [2704.0, 576],
             [2708.33, 581],
-            [3120.00, 711],
+            [3120.0, 711],
             [3124.33, 715],
             [3648.67, 884],
-            [3653.00, 884],
-            [3744.00, 914],
+            [3653.0, 884],
+            [3744.0, 914],
             [3748.33, 914],
             [4034.33, 1010],
             [4038.67, 1010],
             [4558.67, 1174],
-            [4563.00, 1179],
-            [5551.00, 1495],
+            [4563.0, 1179],
+            [5551.0, 1495],
             [5555.33, 1495],
             [7990.67, 2275],
-            [7995.00, 2275],
+            [7995.0, 2275],
             [9182.33, 2656],
             [9186.67, 2656],
             [9728.33, 2830],
             [9732.67, 2830],
-            [10790.00, 3246],
+            [10790.0, 3246],
             [10794.33, 3246],
-            [11245.00, 3419],
+            [11245.0, 3419],
             [11249.33, 3423],
-            [11492.00, 3519],
+            [11492.0, 3519],
             [11496.33, 3519],
-            [11856.00, 3657],
+            [11856.0, 3657],
             [11860.33, 3662],
-            [12558.00, 3935],
+            [12558.0, 3935],
             [12562.33, 3935],
             [14308.67, 4615],
-            [14313.00, 4619],
+            [14313.0, 4619],
             [15825.33, 5330],
             [15829.67, 5330],
         ];

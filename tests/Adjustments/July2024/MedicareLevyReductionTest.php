@@ -77,7 +77,7 @@ class MedicareLevyReductionTest extends TestCase
         int $children2,
         int $children3,
         int $children4,
-        int $children5
+        int $children5,
     ): void {
         $payer = new Payer();
 
@@ -96,7 +96,10 @@ class MedicareLevyReductionTest extends TestCase
         $this->adjustment->spouse = true;
         $this->adjustment->children = 0;
 
-        Assert::assertEquals($spouseOnly, $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning) * -1);
+        Assert::assertEquals(
+            $spouseOnly,
+            $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning) * -1,
+        );
 
         $this->adjustment->children = 1;
         Assert::assertEquals($children1, $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning) * -1);
@@ -117,7 +120,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             [499, 0, 0, 0, 0, 0, 0],
@@ -180,7 +183,7 @@ class MedicareLevyReductionTest extends TestCase
         int $children2,
         int $children3,
         int $children4,
-        int $children5
+        int $children5,
     ): void {
         $payer = new Payer();
 
@@ -217,7 +220,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function weeklyDataScale6(): array
+    public static function weeklyDataScale6(): array
     {
         return [
             [842, 0, 0, 0, 0, 0],
@@ -281,7 +284,7 @@ class MedicareLevyReductionTest extends TestCase
         int $children2,
         int $children3,
         int $children4,
-        int $children5
+        int $children5,
     ): void {
         $payer = new Payer();
 
@@ -300,7 +303,10 @@ class MedicareLevyReductionTest extends TestCase
         $this->adjustment->spouse = true;
         $this->adjustment->children = 0;
 
-        Assert::assertEquals($spouseOnly, $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning) * -1);
+        Assert::assertEquals(
+            $spouseOnly,
+            $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning) * -1,
+        );
 
         $this->adjustment->children = 1;
         Assert::assertEquals($children1, $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning) * -1);
@@ -321,7 +327,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyData(): array
+    public static function fortnightlyData(): array
     {
         return [
             [998, 0, 0, 0, 0, 0, 0],
@@ -384,7 +390,7 @@ class MedicareLevyReductionTest extends TestCase
         int $children2,
         int $children3,
         int $children4,
-        int $children5
+        int $children5,
     ): void {
         $payer = new Payer();
 
@@ -421,7 +427,7 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function fortnightlyDataScale6(): array
+    public static function fortnightlyDataScale6(): array
     {
         return [
             [1684, 0, 0, 0, 0, 0],
@@ -485,7 +491,7 @@ class MedicareLevyReductionTest extends TestCase
         int $children2,
         int $children3,
         int $children4,
-        int $children5
+        int $children5,
     ): void {
         $payer = new Payer();
 
@@ -504,7 +510,10 @@ class MedicareLevyReductionTest extends TestCase
         $this->adjustment->spouse = true;
         $this->adjustment->children = 0;
 
-        Assert::assertEquals($spouseOnly, $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning) * -1);
+        Assert::assertEquals(
+            $spouseOnly,
+            $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning) * -1,
+        );
 
         $this->adjustment->children = 1;
         Assert::assertEquals($children1, $this->adjustment->getAdjustmentAmount($payer, $payee, $scale, $earning) * -1);
@@ -525,54 +534,54 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function monthlyData(): array
+    public static function monthlyData(): array
     {
         return [
             [2162.33, 0, 0, 0, 0, 0, 0],
             [2166.67, 0, 0, 0, 0, 0, 0],
-            [2431.00, 26, 26, 26, 26, 26, 26],
+            [2431.0, 26, 26, 26, 26, 26, 26],
             [2435.33, 26, 26, 26, 26, 26, 26],
-            [2704.00, 52, 52, 52, 52, 52, 52],
+            [2704.0, 52, 52, 52, 52, 52, 52],
             [2708.33, 56, 56, 56, 56, 56, 56],
             [2842.67, 56, 56, 56, 56, 56, 56],
-            [2847.00, 56, 56, 56, 56, 56, 56],
+            [2847.0, 56, 56, 56, 56, 56, 56],
             [2981.33, 61, 61, 61, 61, 61, 61],
             [2985.67, 61, 61, 61, 61, 61, 61],
-            [3120.00, 61, 61, 61, 61, 61, 61],
+            [3120.0, 61, 61, 61, 61, 61, 61],
             [3124.33, 61, 61, 61, 61, 61, 61],
             [3258.67, 65, 65, 65, 65, 65, 65],
-            [3263.00, 65, 65, 65, 65, 65, 65],
+            [3263.0, 65, 65, 65, 65, 65, 65],
             [3397.33, 69, 69, 69, 69, 69, 69],
             [3401.67, 69, 69, 69, 69, 69, 69],
-            [3536.00, 69, 69, 69, 69, 69, 69],
+            [3536.0, 69, 69, 69, 69, 69, 69],
             [3540.33, 69, 69, 69, 69, 69, 69],
             [3674.67, 69, 74, 74, 74, 74, 74],
-            [3679.00, 69, 74, 74, 74, 74, 74],
+            [3679.0, 69, 74, 74, 74, 74, 74],
             [3813.33, 61, 78, 78, 78, 78, 78],
             [3817.67, 61, 78, 78, 78, 78, 78],
-            [3952.00, 48, 78, 78, 78, 78, 78],
+            [3952.0, 48, 78, 78, 78, 78, 78],
             [3956.33, 48, 78, 78, 78, 78, 78],
             [4090.67, 39, 69, 82, 82, 82, 82],
-            [4095.00, 39, 69, 82, 82, 82, 82],
+            [4095.0, 39, 69, 82, 82, 82, 82],
             [4229.33, 26, 61, 87, 87, 87, 87],
             [4233.67, 26, 61, 87, 87, 87, 87],
-            [4368.00, 17, 48, 82, 87, 87, 87],
+            [4368.0, 17, 48, 82, 87, 87, 87],
             [4372.33, 17, 48, 82, 87, 87, 87],
             [4506.67, 4, 39, 74, 91, 91, 91],
-            [4511.00, 4, 39, 69, 91, 91, 91],
+            [4511.0, 4, 39, 69, 91, 91, 91],
             [4645.33, 0, 26, 61, 91, 91, 91],
             [4649.67, 0, 26, 61, 91, 91, 91],
-            [4784.00, 0, 17, 48, 82, 95, 95],
+            [4784.0, 0, 17, 48, 82, 95, 95],
             [4788.33, 0, 17, 48, 82, 95, 95],
             [4922.67, 0, 4, 39, 74, 100, 100],
-            [4927.00, 0, 4, 39, 74, 100, 100],
+            [4927.0, 0, 4, 39, 74, 100, 100],
             [5061.33, 0, 0, 26, 61, 95, 100],
             [5065.67, 0, 0, 26, 61, 95, 100],
-            [5200.00, 0, 0, 17, 48, 82, 104],
+            [5200.0, 0, 0, 17, 48, 82, 104],
             [5204.33, 0, 0, 17, 48, 82, 104],
             [5338.67, 0, 0, 4, 39, 74, 104],
-            [5343.00, 0, 0, 4, 39, 74, 104],
-            [6240.00, 0, 0, 0, 0, 0, 35],
+            [5343.0, 0, 0, 4, 39, 74, 104],
+            [6240.0, 0, 0, 0, 0, 0, 35],
             [6244.33, 0, 0, 0, 0, 0, 35],
             [6660.33, 0, 0, 0, 0, 0, 0],
             [6664.67, 0, 0, 0, 0, 0, 0],
@@ -588,7 +597,7 @@ class MedicareLevyReductionTest extends TestCase
         int $children2,
         int $children3,
         int $children4,
-        int $children5
+        int $children5,
     ): void {
         $payer = new Payer();
 
@@ -625,54 +634,54 @@ class MedicareLevyReductionTest extends TestCase
     /**
      * @return array<int, array<int|float, int|float>>
      */
-    public function monthlyDataScale6(): array
+    public static function monthlyDataScale6(): array
     {
         return [
             [3648.67, 0, 0, 0, 0, 0],
-            [3653.00, 0, 0, 0, 0, 0],
+            [3653.0, 0, 0, 0, 0, 0],
             [4103.67, 22, 22, 22, 22, 22],
-            [4108.00, 22, 22, 22, 22, 22],
+            [4108.0, 22, 22, 22, 22, 22],
             [4558.67, 43, 43, 43, 43, 43],
-            [4563.00, 17, 35, 48, 48, 48],
-            [4641.00, 13, 30, 48, 48, 48],
+            [4563.0, 17, 35, 48, 48, 48],
+            [4641.0, 13, 30, 48, 48, 48],
             [4645.33, 13, 30, 48, 48, 48],
             [4723.33, 9, 26, 43, 48, 48],
             [4727.67, 9, 26, 43, 48, 48],
             [4805.67, 9, 26, 39, 48, 48],
-            [4810.00, 9, 22, 39, 48, 48],
-            [4888.00, 4, 22, 39, 48, 48],
+            [4810.0, 9, 22, 39, 48, 48],
+            [4888.0, 4, 22, 39, 48, 48],
             [4892.33, 4, 22, 39, 48, 48],
             [4970.33, 0, 17, 35, 48, 48],
             [4974.67, 0, 17, 35, 48, 48],
             [5052.67, 0, 13, 30, 48, 52],
-            [5057.00, 0, 13, 30, 48, 52],
-            [5135.00, 0, 9, 26, 43, 52],
+            [5057.0, 0, 13, 30, 48, 52],
+            [5135.0, 0, 9, 26, 43, 52],
             [5139.33, 0, 9, 26, 43, 52],
             [5217.33, 0, 9, 26, 39, 52],
             [5221.67, 0, 9, 26, 39, 52],
             [5299.67, 0, 4, 22, 39, 52],
-            [5304.00, 0, 4, 22, 39, 52],
-            [5382.00, 0, 0, 17, 35, 52],
+            [5304.0, 0, 4, 22, 39, 52],
+            [5382.0, 0, 0, 17, 35, 52],
             [5386.33, 0, 0, 17, 35, 52],
             [5464.33, 0, 0, 13, 30, 48],
             [5468.67, 0, 0, 13, 30, 48],
             [5546.67, 0, 0, 13, 26, 43],
-            [5551.00, 0, 0, 9, 26, 43],
-            [5629.00, 0, 0, 9, 26, 43],
+            [5551.0, 0, 0, 9, 26, 43],
+            [5629.0, 0, 0, 9, 26, 43],
             [5633.33, 0, 0, 9, 26, 39],
             [5711.33, 0, 0, 4, 22, 39],
             [5715.67, 0, 0, 4, 22, 39],
             [5793.67, 0, 0, 0, 17, 35],
-            [5798.00, 0, 0, 0, 17, 35],
-            [5876.00, 0, 0, 0, 13, 30],
+            [5798.0, 0, 0, 0, 17, 35],
+            [5876.0, 0, 0, 0, 13, 30],
             [5880.33, 0, 0, 0, 13, 30],
             [5958.33, 0, 0, 0, 13, 26],
             [5962.67, 0, 0, 0, 13, 26],
             [6040.67, 0, 0, 0, 9, 26],
-            [6045.00, 0, 0, 0, 9, 26],
-            [6123.00, 0, 0, 0, 4, 22],
+            [6045.0, 0, 0, 0, 9, 26],
+            [6123.0, 0, 0, 0, 4, 22],
             [6127.33, 0, 0, 0, 4, 22],
-            [6240.00, 0, 0, 0, 0, 17],
+            [6240.0, 0, 0, 0, 0, 17],
             [6244.33, 0, 0, 0, 0, 17],
             [6660.33, 0, 0, 0, 0, 0],
             [6664.67, 0, 0, 0, 0, 0],

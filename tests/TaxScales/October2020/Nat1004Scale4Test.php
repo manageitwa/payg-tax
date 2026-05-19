@@ -23,7 +23,7 @@ class Nat1004Scale4Test extends TestCase
 
         $payee = new Payee();
         $payee->payCycle = Payee::PAY_CYCLE_WEEKLY;
-        $payee->residencyStatus = ($resident) ? Payee::RESIDENT : Payee::FOREIGN_RESIDENT;
+        $payee->residencyStatus = $resident ? Payee::RESIDENT : Payee::FOREIGN_RESIDENT;
         $payee->tfn = false;
         $payee->claimsTaxFreeThreshold = false;
         $payee->stsl = false;
@@ -32,10 +32,7 @@ class Nat1004Scale4Test extends TestCase
         $earning->date = new \DateTime('2022-10-15');
         $earning->gross = $gross;
 
-        $payg = PaygTax::new()
-            ->setPayer($payer)
-            ->setPayee($payee)
-            ->setEarning($earning);
+        $payg = PaygTax::new()->setPayer($payer)->setPayee($payee)->setEarning($earning);
 
         Assert::assertEquals($withheld, $payg->getTaxWithheldAmount());
     }
@@ -43,7 +40,7 @@ class Nat1004Scale4Test extends TestCase
     /**
      * @return array<int, array<int|float, int|float|bool>>
      */
-    public function weeklyData(): array
+    public static function weeklyData(): array
     {
         return [
             // Australian Residents
