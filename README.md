@@ -6,7 +6,7 @@ This library only supports calculating tax for gross payments after 13th October
 
 ## Requirements
 
-- PHP 7.4 or PHP 8.0, and above.
+- PHP 8.2 and above.
 
 ## Installation
 
@@ -89,12 +89,11 @@ class Employee implements Payee
 }
 ```
 
-Offsets and adjustments are applied *after* the initial tax withholding amount is calculated.
+Offsets and adjustments are applied _after_ the initial tax withholding amount is calculated.
 
 ### Custom adjustments
 
 If this software does not cover a particular adjustments that might be applied to the tax, you may create your own adjustments and ensure that it is returned by the `getAdjustments()` method for the `Payee` record. You may use the `isEligible()` method in the custom adjustment to determine the eligibility of the adjustment based on the payer, payee, tax scale and earning applied in the scenario.
-
 
 ```php
 <?php
