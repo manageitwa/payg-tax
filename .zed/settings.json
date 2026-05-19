@@ -1,0 +1,30 @@
+{
+    "wrap_guides": [80],
+    "file_types": {
+        "PHP": ["**/*.php", "**/*.ctp"],
+        "Blade": ["**/*.blade.php"],
+    },
+    "format_on_save": "on",
+    "languages": {
+        "PHP": {
+            "wrap_guides": [120],
+            "language_servers": [
+                "intelephense",
+                "!phpactor",
+                "!phptools",
+                "...",
+            ],
+            "prettier": {
+                "allowed": true,
+                "phpVersion": "8.4",
+                "tabWidth": 4,
+                "printWidth": 120,
+                "trailingComma": "all",
+                "trailingCommaPHP": true,
+                "experimentalOperatorPosition": "start",
+                "singleQuote": true,
+            },
+            "formatter": ["prettier"],
+        },
+    },
+}
