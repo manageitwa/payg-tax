@@ -16,12 +16,12 @@ jobs:
     name: PHP
     steps:
       - name: Checkout changes
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Install PHP and PHP Code Sniffer
-        uses: shivammathur/setup-php@v2
+        uses: github.com/shivammathur/setup-php@v2
         with:
           php-version: 8.4
           tools: phpcs
