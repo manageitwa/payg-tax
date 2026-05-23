@@ -35,7 +35,7 @@ jobs:
         run: ./vendor/bin/phpunit
   phpStan:
     runs-on: ubuntu-latest
-    name: Static Analysis
+    name: PHPStan
     steps:
       - name: Checkout changes
         uses: actions/checkout@v6
