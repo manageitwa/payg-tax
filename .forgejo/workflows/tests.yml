@@ -7,7 +7,7 @@ on:
   pull_request:
 
 concurrency:
-  group: phpunit-${{ github.workflow }}-${{ github.ref }}
+  group: phpunit-${{ forgejo.workflow }}-${{ forgejo.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
         run: ./vendor/bin/phpunit
   phpStan:
     runs-on: ubuntu-latest
-    name: PHPStan
+    name: Static Analysis
     steps:
       - name: Checkout changes
         uses: actions/checkout@v6
